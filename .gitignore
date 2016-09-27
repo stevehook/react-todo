@@ -1,3 +1,4 @@
 node_modules
-.bundle
-.env
+js/bundle.js
+js/bundle.min.js
+npm-debug.log
