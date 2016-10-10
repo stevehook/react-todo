@@ -1,0 +1,31 @@
+version: '2'
+services:
+  web:
+    image: react-todo:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+       - .:/app/ui/
+       - /app/ui/node_modules/
+       - /app/ui/assets/
+    ports:
+      - "8080:8080"
+    command: npm run serve
+    # links:
+    #   - api_service
+  # api_service:
+  #   image: ?
+  #   command: ?
+  #   environment:
+  #     - ?
+  #   ports:
+  #     - ?
+  #   links:
+  #    - postgres
+  # postgres:
+  #   image: postgres:9.5
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_DB: todo_development
