@@ -12,20 +12,20 @@ services:
     ports:
       - "8080:8080"
     command: npm run serve
-    # links:
-    #   - api_service
-  # api_service:
-  #   image: ?
-  #   command: ?
-  #   environment:
-  #     - ?
-  #   ports:
-  #     - ?
-  #   links:
-  #    - postgres
-  # postgres:
-  #   image: postgres:9.5
-  #   ports:
-  #     - "5432:5432"
-  #   environment:
-  #     POSTGRES_DB: todo_development
+    links:
+      - api_service
+  api_service:
+    image: elixir-todo:v1
+    build:
+      context: ../todo
+    command: mix phoenix.server
+    volumes:
+      - ../todo:/app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: db
+  db:
+    image: postgres:9.5
