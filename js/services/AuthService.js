@@ -6,7 +6,7 @@ class AuthService extends ApiService {
     return this.promisify(
       request
         .post('/api/sessions')
-        .send({ credentials: { email: email, password: password } })
+        .send({ user: { email: email, password: password } })
         .set('Accept', 'application/json')
     );
   }
@@ -18,7 +18,7 @@ class AuthService extends ApiService {
   checkLoggedIn() {
     return this.promisify(
       request
-        .get('/api/sessions')
+        .get('/api/session')
         .set('Accept', 'application/json')
     );
   }
