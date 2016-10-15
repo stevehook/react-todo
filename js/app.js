@@ -14,4 +14,5 @@ const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 let store = createStoreWithMiddleware(todoApp, { loggedIn: false, user: null });
 
 // TODO: Do I really need to pass the store as prop to TodoApp as well?
-ReactDOM.render(<Provider store={store}><TodoApp store={store}/></Provider>, document.getElementById('todoapp'));
+ReactDOM.render(<Provider store={store}><TodoApp store={store}/></Provider>,
+                document.getElementById('todoapp'));
