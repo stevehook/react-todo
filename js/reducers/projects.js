@@ -1,9 +1,12 @@
+const todos = require('./todos');
+
 import { ADD_PROJECT, ADD_PROJECT_START, ADD_PROJECT_SUCCESS, ADD_PROJECT_FAILURE,
   FETCH_PROJECTS, FETCH_PROJECTS_START, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   projects: [],
-  newProject: { id: 0, name: '' }
+  newProject: { id: 0, name: '' },
+  taskData: todos.INITIAL_STATE
 };
 
 function projects(state = INITIAL_STATE, action) {
@@ -24,7 +27,9 @@ function projects(state = INITIAL_STATE, action) {
       // PROJECT: Set UI Error message
       return state;
     default:
-      return state;
+      return Object.assign({}, state, {
+        taskData: tasks(state.taskData, action)
+      });
   }
 };
 

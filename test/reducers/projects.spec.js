@@ -40,7 +40,7 @@ describe('Adding projects', () => {
     it('adding a project is asynchronous so does not add a project straight away', () => {
       let newState = todoApp(initialState, {
         type: 'ADD_PROJECT',
-        title: 'Housework'
+        name: 'Housework'
       });
       expect(newState.data).to.eql(initialState.data);
     });
@@ -66,9 +66,9 @@ describe('Adding projects', () => {
 
 describe('todos FETCH_PROJECTS_SUCCESS', () => {
   let projects = [
-    { id: 123, title: 'Housework' },
-    { id: 456, title: 'Gardening' },
-    { id: 789, title: 'Shopping' }
+    { id: 123, name: 'Housework' },
+    { id: 456, name: 'Gardening' },
+    { id: 789, name: 'Shopping' }
   ];
 
   it('adds a new project', () => {
@@ -78,7 +78,7 @@ describe('todos FETCH_PROJECTS_SUCCESS', () => {
     });
     expect(newState.data).to.eql({
       projects: projects,
-      newProject: { id: 0, title: '' }
+      newProject: { id: 0, name: '' }
     });
   });
 });
