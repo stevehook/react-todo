@@ -30,6 +30,15 @@ export const ARCHIVE_TASK_START = 'ARCHIVE_TASK_START';
 export const ARCHIVE_TASK_SUCCESS = 'ARCHIVE_TASK_SUCCESS';
 export const ARCHIVE_TASK_FAILURE = 'ARCHIVE_TASK_FAILURE';
 
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const ADD_PROJECT_START = 'ADD_PROJECT_START';
+export const ADD_PROJECT_SUCCESS = 'ADD_PROJECT_SUCCESS';
+export const ADD_PROJECT_FAILURE = 'ADD_PROJECT_FAILURE';
+export const FETCH_PROJECTS = 'FETCH_PROJECTS';
+export const FETCH_PROJECTS_START = 'FETCH_PROJECTS_START';
+export const FETCH_PROJECTS_SUCCESS = 'FETCH_PROJECTS_SUCCESS';
+export const FETCH_PROJECTS_FAILURE = 'FETCH_PROJECTS_FAILURE';
+
 export function checkLoggedIn() {
   return function (dispatch) {
     dispatch(checkLoggedInStart());

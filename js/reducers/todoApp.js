@@ -1,14 +1,15 @@
 const authentication = require('./authentication');
 const todos = require('./todos');
+const projects = require('./projects');
 
 const INITIAL_STATE = {
   authentication: authentication.INITIAL_STATE,
-  data: todos.INITIAL_STATE
+  data: projects.INITIAL_STATE
 };
 
 function todoApp(state = INITIAL_STATE, action) {
   return {
-    data: todos(state.data, action),
+    data: projects(state.data, action),
     authentication: authentication(state.authentication, action)
   }
 };
