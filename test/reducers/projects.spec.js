@@ -76,9 +76,7 @@ describe('todos FETCH_PROJECTS_SUCCESS', () => {
       type: 'FETCH_PROJECTS_SUCCESS',
       projects: projects
     });
-    expect(newState.data).to.eql({
-      projects: projects,
-      newProject: { id: 0, name: '' }
-    });
+    expect(newState.data.projects).to.eql(projects);
+    expect(newState.data.newProject).to.eql({ id: 0, name: '' });
   });
 });

@@ -27,9 +27,7 @@ function projects(state = INITIAL_STATE, action) {
       // PROJECT: Set UI Error message
       return state;
     default:
-      return Object.assign({}, state, {
-        taskData: tasks(state.taskData, action)
-      });
+      return state;
   }
 };
 
