@@ -13,8 +13,10 @@ describe('todoApp UNKNOWN ACTION', () => {
 describe('Adding tasks', () => {
   const initialState = {
     data: {
-      tasks: [ { id: 123, title: 'Some existing chore', completed: false } ],
-      newTask: { id: 0, title: '', completed: false }
+      tasks: {
+        collection: [ { id: 123, title: 'Some existing chore', completed: false } ],
+        newTask: { id: 0, title: '', completed: false }
+      }
     },
     authentication: {
       loggedIn: true,
@@ -28,8 +30,8 @@ describe('Adding tasks', () => {
         type: 'ADD_TASK_SUCCESS',
         task: { id: 0, title: 'Walk the dog', completed: false }
       });
-      expect(newState.data).to.eql({
-        tasks: [ { id: 123, title: 'Some existing chore', completed: false },
+      expect(newState.data.tasks).to.eql({
+        collection: [ { id: 123, title: 'Some existing chore', completed: false },
           { id: 0, title: 'Walk the dog', completed: false } ],
         newTask: { id: 0, title: '', completed: false }
       });
@@ -42,7 +44,7 @@ describe('Adding tasks', () => {
         type: 'ADD_TASK',
         title: 'Walk the dog'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
   describe('todoApp ADD_TASK_FAILURE', () => {
@@ -51,7 +53,7 @@ describe('Adding tasks', () => {
         type: 'ADD_TASK_FAILURE',
         error: 'Server on fire'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
   describe('todoApp ADD_TASK_START', () => {
@@ -59,7 +61,7 @@ describe('Adding tasks', () => {
       let newState = todoApp(initialState, {
         type: 'ADD_TASK_START'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
 });
@@ -76,8 +78,8 @@ describe('todos FETCH_TASKS_SUCCESS', () => {
       type: 'FETCH_TASKS_SUCCESS',
       tasks: tasks
     });
-    expect(newState.data).to.eql({
-      tasks: tasks,
+    expect(newState.data.tasks).to.eql({
+      collection: tasks,
       newTask: { id: 0, title: '', completed: false }
     });
   });
@@ -86,12 +88,14 @@ describe('todos FETCH_TASKS_SUCCESS', () => {
 describe('Completing tasks', () => {
   const initialState = {
     data: {
-      tasks: [
-        { id: 123, title: 'Cook dinner', completed: false },
-        { id: 456, title: 'Feed the kids', completed: false },
-        { id: 789, title: 'Feed the wife', completed: false }
-      ],
-      newTask: { id: 0, title: '', completed: false }
+      tasks: {
+        collection: [
+          { id: 123, title: 'Cook dinner', completed: false },
+          { id: 456, title: 'Feed the kids', completed: false },
+          { id: 789, title: 'Feed the wife', completed: false }
+        ],
+        newTask: { id: 0, title: '', completed: false }
+      }
     },
     authentication: {
       loggedIn: true,
@@ -105,8 +109,8 @@ describe('Completing tasks', () => {
         type: 'COMPLETE_TASK_SUCCESS',
         task: { id: 456, title: 'Feed the kids', completed: true }
       });
-      expect(newState.data).to.eql({
-        tasks: [
+      expect(newState.data.tasks).to.eql({
+        collection: [
           { id: 123, title: 'Cook dinner', completed: false },
           { id: 456, title: 'Feed the kids', completed: true },
           { id: 789, title: 'Feed the wife', completed: false }
@@ -122,7 +126,7 @@ describe('Completing tasks', () => {
         type: 'COMPLETE_TASK',
         title: 'Walk the dog'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
   describe('todoApp COMPLETE_TASK_FAILURE', () => {
@@ -131,7 +135,7 @@ describe('Completing tasks', () => {
         type: 'COMPLETE_TASK_FAILURE',
         error: 'Server on fire'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
   describe('todoApp COMPLETE_TASK_START', () => {
@@ -139,7 +143,7 @@ describe('Completing tasks', () => {
       let newState = todoApp(initialState, {
         type: 'COMPLETE_TASK_START'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
 });
@@ -147,12 +151,14 @@ describe('Completing tasks', () => {
 describe('Archiving tasks', () => {
   const initialState = {
     data: {
-      tasks: [
-        { id: 123, title: 'Cook dinner', archived: false },
-        { id: 456, title: 'Feed the kids', archived: false },
-        { id: 789, title: 'Feed the wife', archived: false }
-      ],
-      newTask: { id: 0, title: '', archived: false }
+      tasks: {
+        collection: [
+          { id: 123, title: 'Cook dinner', archived: false },
+          { id: 456, title: 'Feed the kids', archived: false },
+          { id: 789, title: 'Feed the wife', archived: false }
+        ],
+        newTask: { id: 0, title: '', archived: false }
+      }
     },
     authentication: {
       loggedIn: true,
@@ -166,8 +172,8 @@ describe('Archiving tasks', () => {
         type: 'ARCHIVE_TASK_SUCCESS',
         task: { id: 456, title: 'Feed the kids', archived: true }
       });
-      expect(newState.data).to.eql({
-        tasks: [
+      expect(newState.data.tasks).to.eql({
+        collection: [
           { id: 123, title: 'Cook dinner', archived: false },
           { id: 789, title: 'Feed the wife', archived: false }
         ],
@@ -182,7 +188,7 @@ describe('Archiving tasks', () => {
         type: 'ARCHIVE_TASK',
         title: 'Walk the dog'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
   describe('todoApp ARCHIVE_TASK_FAILURE', () => {
@@ -191,7 +197,7 @@ describe('Archiving tasks', () => {
         type: 'ARCHIVE_TASK_FAILURE',
         error: 'Server on fire'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
   describe('todoApp ARCHIVE_TASK_START', () => {
@@ -199,7 +205,7 @@ describe('Archiving tasks', () => {
       let newState = todoApp(initialState, {
         type: 'ARCHIVE_TASK_START'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.tasks).to.eql(initialState.data.tasks);
     });
   });
 });

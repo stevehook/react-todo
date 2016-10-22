@@ -13,8 +13,10 @@ describe('todoApp UNKNOWN ACTION', () => {
 describe('Adding projects', () => {
   const initialState = {
     data: {
-      projects: [ { id: 123, name: 'Housework' } ],
-      newProject: { id: 0, name: '' }
+      projects: {
+        collection: [ { id: 123, name: 'Housework' } ],
+        newProject: { id: 0, name: '' }
+      }
     },
     authentication: {
       loggedIn: true,
@@ -26,11 +28,13 @@ describe('Adding projects', () => {
     it('adds a new project', () => {
       let newState = todoApp(initialState, {
         type: 'ADD_PROJECT_SUCCESS',
-        project: { id: 0, name: 'Gardening' }
+        project: { id: 456, name: 'Gardening' }
       });
-      expect(newState.data).to.eql({
-        projects: [ { id: 123, name: 'Housework' },
-          { id: 0, name: 'Gardening' } ],
+      expect(newState.data.projects).to.eql({
+        collection: [
+          { id: 123, name: 'Housework' },
+          { id: 456, name: 'Gardening' }
+        ],
         newProject: { id: 0, name: '' }
       });
     });
@@ -42,7 +46,7 @@ describe('Adding projects', () => {
         type: 'ADD_PROJECT',
         name: 'Housework'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.projects).to.eql(initialState.data.projects);
     });
   });
   describe('todoApp ADD_PROJECT_FAILURE', () => {
@@ -51,7 +55,7 @@ describe('Adding projects', () => {
         type: 'ADD_PROJECT_FAILURE',
         error: 'Server on fire'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.projects).to.eql(initialState.data.projects);
     });
   });
   describe('todoApp ADD_PROJECT_START', () => {
@@ -59,7 +63,7 @@ describe('Adding projects', () => {
       let newState = todoApp(initialState, {
         type: 'ADD_PROJECT_START'
       });
-      expect(newState.data).to.eql(initialState.data);
+      expect(newState.data.projects).to.eql(initialState.data.projects);
     });
   });
 });
@@ -76,7 +80,9 @@ describe('todos FETCH_PROJECTS_SUCCESS', () => {
       type: 'FETCH_PROJECTS_SUCCESS',
       projects: projects
     });
-    expect(newState.data.projects).to.eql(projects);
-    expect(newState.data.newProject).to.eql({ id: 0, name: '' });
+    expect(newState.data.projects).to.eql({
+      collection: projects,
+      newProject: { id: 0, name: '' }
+    });
   });
 });

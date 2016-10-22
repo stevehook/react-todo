@@ -2,27 +2,27 @@ import { ADD_TASK, ADD_TASK_START, ADD_TASK_SUCCESS, ADD_TASK_FAILURE, COMPLETE_
   FETCH_TASKS_START, FETCH_TASKS_SUCCESS, FETCH_TASKS_FAILURE } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  tasks: [],
+  collection: [],
   newTask: { id: 0, title: '', completed: false }
 };
 
 function updateTask(state, taskId, updater) {
-  let index = state.tasks.findIndex(t => t.id === taskId);
+  let index = state.collection.findIndex(t => t.id === taskId);
   return Object.assign({}, state, {
-    tasks: [
-      ...state.tasks.slice(0, index),
-      updater(state.tasks[index]),
-      ...state.tasks.slice(index + 1)
+    collection: [
+      ...state.collection.slice(0, index),
+      updater(state.collection[index]),
+      ...state.collection.slice(index + 1)
     ]
   });
 }
 
 function removeTask(state, taskId) {
-  let index = state.tasks.findIndex(t => t.id === taskId);
+  let index = state.collection.findIndex(t => t.id === taskId);
   return Object.assign({}, state, {
-    tasks: [
-      ...state.tasks.slice(0, index),
-      ...state.tasks.slice(index + 1)
+    collection: [
+      ...state.collection.slice(0, index),
+      ...state.collection.slice(index + 1)
     ]
   });
 }
@@ -31,7 +31,7 @@ function todos(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_TASK_SUCCESS:
       return Object.assign({}, state, {
-        tasks: state.tasks.concat([action.task]),
+        collection: state.collection.concat([action.task]),
       });
 
     case COMPLETE_TASK_SUCCESS:
@@ -45,7 +45,7 @@ function todos(state = INITIAL_STATE, action) {
       return state;
     case FETCH_TASKS_SUCCESS:
       return Object.assign({}, state, {
-        tasks: action.tasks
+        collection: action.tasks
       });
     case FETCH_TASKS_FAILURE:
       // TASK: Set UI Error message

@@ -4,16 +4,16 @@ import { ADD_PROJECT, ADD_PROJECT_START, ADD_PROJECT_SUCCESS, ADD_PROJECT_FAILUR
   FETCH_PROJECTS, FETCH_PROJECTS_START, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  projects: [],
-  newProject: { id: 0, name: '' },
-  taskData: todos.INITIAL_STATE
+  collection: [],
+  newProject: { id: 0, name: '' }
 };
 
 function projects(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_PROJECT_SUCCESS:
+      console.log(state);
       return Object.assign({}, state, {
-        projects: state.projects.concat([action.project]),
+        collection: state.collection.concat([action.project]),
       });
 
     case FETCH_PROJECTS_START:
@@ -21,7 +21,7 @@ function projects(state = INITIAL_STATE, action) {
       return state;
     case FETCH_PROJECTS_SUCCESS:
       return Object.assign({}, state, {
-        projects: action.projects
+        collection: action.projects
       });
     case FETCH_PROJECTS_FAILURE:
       // PROJECT: Set UI Error message
