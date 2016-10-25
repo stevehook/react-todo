@@ -5,11 +5,21 @@ describe('todoApp LOGIN_SUCCESS', () => {
   it('sets the user and login state', () => {
     let newState = todoApp(undefined, {
       type: 'LOGIN_SUCCESS',
-      user: { id: 123, name: 'Bob' }
+      user: {
+        id: 123,
+        email: 'bob@example.com',
+        name: 'Bob Roberts'
+      },
+      jwt: 'abc123'
     });
     expect(newState.authentication).to.eql({
       loggedIn: true,
-      user: { id: 123, name: 'Bob' },
+      jwt: 'abc123',
+      user: {
+        id: 123,
+        email: 'bob@example.com',
+        name: 'Bob Roberts'
+      }
     });
   });
 });
@@ -29,6 +39,7 @@ describe('todoApp LOGIN_FAILURE', () => {
     expect(newState.authentication).to.eql({
       loggedIn: false,
       user: null,
+      jwt: null
     });
   });
 });

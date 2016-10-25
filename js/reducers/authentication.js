@@ -2,6 +2,7 @@ import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, CHECK_LOGGED_IN_START } from
 
 const INITIAL_STATE = {
   loggedIn: false,
+  jwt: null,
   user: null,
 };
 
@@ -14,12 +15,14 @@ function authentication(state = INITIAL_STATE, action) {
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
         loggedIn: true,
-        user: action.user
+        user: action.user,
+        jwt: action.jwt
       });
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
         loggedIn: false,
-        user: null
+        user: null,
+        jwt: null
       });
     default:
       return state;
