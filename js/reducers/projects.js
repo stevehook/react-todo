@@ -11,7 +11,6 @@ const INITIAL_STATE = {
 function projects(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_PROJECT_SUCCESS:
-      console.log(state);
       return Object.assign({}, state, {
         collection: state.collection.concat([action.project]),
       });

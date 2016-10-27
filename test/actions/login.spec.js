@@ -3,19 +3,15 @@ const request = require('superagent');
 import * as actions from '../../js/actions/actionTypes';
 import nock from 'nock';
 const mockStore = require('../mockStore');
+const todoApp = require('../../js/reducers/todoApp');
 
 describe('actions', () => {
   describe('login', () => {
     afterEach(() => { nock.cleanAll(); });
-    const initialState = {
-      authentication: {
-        loggedIn: false,
-        user: null
-      }
-    };
+    const initialState = todoApp.INITIAL_STATE;
 
     describe('when POST /api/sessions succeeds', () => {
-      let responseBody = { user: { id: 123, name: 'Bob' } };
+      let responseBody = { user: { id: 123, name: 'Bob' }, jwt: 'jwt123' };
 
       beforeEach(() => {
         nock('http://localhost')

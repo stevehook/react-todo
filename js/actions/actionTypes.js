@@ -58,7 +58,10 @@ export function login(email, password) {
     dispatch(loginStart());
     let authService = new AuthService();
     return authService.login(email, password)
-      .then(res => dispatch(loginSuccess(res.body)))
+      .then((res) => {
+        window.sessionStorage.setItem('jwt', res.body.jwt);
+        return dispatch(loginSuccess(res.body));
+      })
       .catch(err => dispatch(loginFailure('Login Failed')));
   }
 };

@@ -13,8 +13,8 @@ const INITIAL_STATE = {
 function todoApp(state = INITIAL_STATE, action) {
   return {
     data: {
-      projects: projects(state.data.projects, action),
-      tasks: todos(state.data.tasks, action)
+      projects: projects(state.data ? state.data.projects : undefined, action),
+      tasks: todos(state.data ? state.data.tasks : undefined, action)
     },
     authentication: authentication(state.authentication, action)
   }
