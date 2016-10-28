@@ -62,7 +62,10 @@ export function login(email, password) {
         window.sessionStorage.setItem('jwt', res.body.jwt);
         return dispatch(loginSuccess(res.body));
       })
-      .catch(err => dispatch(loginFailure('Login Failed')));
+      .catch((err) => {
+        window.sessionStorage.removeItem('jwt');
+        dispatch(loginFailure('Login Failed'));
+      });
   }
 };
 

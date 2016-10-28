@@ -39,6 +39,7 @@ describe('actions', () => {
         nock('http://localhost')
           .post('/api/sessions')
           .reply(400, {}, {'Content-Type': 'application/json'});
+        window.sessionStorage.setItem('jwt', 'jwt456');
       });
 
       it('it dispatches the correct actions', (done) => {
@@ -46,7 +47,11 @@ describe('actions', () => {
           { type: actions.LOGIN_START },
           { type: actions.LOGIN_FAILURE, error: 'Login Failed' }
         ];
-        const store = mockStore(initialState, expectedActions, done);
+        const store = mockStore(initialState, expectedActions, () =>
+        {
+          expect(window.sessionStorage.getItem('jwt')).to.eql(null);
+          done();
+        });
         store.dispatch(actions.login());
       });
     });

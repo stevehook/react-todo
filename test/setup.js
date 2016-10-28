@@ -14,6 +14,9 @@ window.sessionStorage = function() {
     },
     getItem: function(key) {
       return storage[key] || null;
+    },
+    removeItem: function(key) {
+      delete storage[key];
     }
   };
 }();
