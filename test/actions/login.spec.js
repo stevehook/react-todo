@@ -17,14 +17,19 @@ describe('actions', () => {
         nock('http://localhost')
           .post('/api/sessions')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
+        window.sessionStorage.setItem('jwt', null);
       });
 
-      it('it dispatches the correct actions', (done) => {
+      it('it dispatches the correct actions and sets the JWT token in sessionStorage', (done) => {
         const expectedActions = [
           { type: actions.LOGIN_START },
           { type: actions.LOGIN_SUCCESS, user: responseBody }
         ];
-        const store = mockStore(initialState, expectedActions, done);
+        const store = mockStore(initialState, expectedActions, () =>
+        {
+          expect(window.sessionStorage.getItem('jwt')).to.eql('jwt123');
+          done();
+        });
         store.dispatch(actions.login());
       });
     });
