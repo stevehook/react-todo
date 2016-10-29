@@ -50,17 +50,25 @@ export function checkLoggedIn() {
     let authService = new AuthService();
     return authService.checkLoggedIn()
       .then((res) => {
-        dispatch(loginSuccess(res.body));
+        dispatch(checkLoggedInSuccess(res.body));
       })
       .catch((err) => {
         window.sessionStorage.removeItem('jwt');
-        dispatch(loginFailure('Login Failed'));
+        dispatch(checkLoggedInFailure('Login Failed'));
       });
   }
 };
 
 export function checkLoggedInStart() {
   return { type: CHECK_LOGGED_IN_START };
+};
+
+export function checkLoggedInSuccess(user) {
+  return { type: CHECK_LOGGED_IN_SUCCESS, user };
+};
+
+export function checkLoggedInFailure(error) {
+  return { type: CHECK_LOGGED_IN_FAILURE, error };
 };
 
 export function login(email, password) {

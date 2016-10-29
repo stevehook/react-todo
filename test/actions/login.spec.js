@@ -17,7 +17,7 @@ describe('actions', () => {
         beforeEach(() => {
           nock('http://localhost')
             .get('/api/session')
-            .matchHeader('Authorization', 'Bearer jwt123')
+            .matchHeader('authorization', 'Bearer jwt123')
             .reply(200, responseBody, {'Content-Type': 'application/json'});
         });
 
@@ -30,9 +30,11 @@ describe('actions', () => {
             { type: actions.CHECK_LOGGED_IN_START },
             { type: actions.CHECK_LOGGED_IN_SUCCESS, user: responseBody }
           ];
-          const store = mockStore(initialState, expectedActions, () => {
-            expect(window.sessionStorage.getItem('jwt')).to.eql('jwt123');
-            done();
+          const store = mockStore(initialState, expectedActions, (e) => {
+            if (!e) {
+              expect(window.sessionStorage.getItem('jwt')).to.eql('jwt123');
+            }
+            done(e);
           });
           store.dispatch(actions.checkLoggedIn());
         });
