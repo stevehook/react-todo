@@ -1,4 +1,5 @@
 const TaskService = require('../services/TaskService');
+const ProjectService = require('../services/ProjectService');
 const AuthService = require('../services/AuthService');
 
 export const CHECK_LOGGED_IN_START = 'CHECK_LOGGED_IN_START';
@@ -181,3 +182,26 @@ export function archiveTaskSuccess(task) {
 export function archiveTaskFailure(error) {
   return { type: ARCHIVE_TASK_FAILURE, error };
 };
+
+export function fetchProjects() {
+  return function (dispatch) {
+    dispatch(fetchProjectsStart());
+    let projectService = new ProjectService();
+    return projectService.get()
+      .then(res => dispatch(fetchProjectsSuccess(res.body)))
+      .catch(err => dispatch(fetchProjectsFailure('API Failed')));
+  }
+};
+
+export function fetchProjectsStart() {
+  return { type: FETCH_PROJECTS_START };
+};
+
+export function fetchProjectsSuccess(projects) {
+  return { type: FETCH_PROJECTS_SUCCESS, projects };
+};
+
+export function fetchProjectsFailure(error) {
+  return { type: FETCH_PROJECTS_FAILURE, error };
+};
+
