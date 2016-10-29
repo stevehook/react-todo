@@ -6,6 +6,59 @@ const mockStore = require('../mockStore');
 const todoApp = require('../../js/reducers/todoApp');
 
 describe('actions', () => {
+  describe('checkLoggedIn', () => {
+    afterEach(() => { nock.cleanAll(); });
+    const initialState = todoApp.INITIAL_STATE;
+
+    describe('when GET /api/session succeeds', () => {
+      describe('when JWT is set', () => {
+        let responseBody = { user: { id: 123, name: 'Bob' }, jwt: 'jwt123' };
+
+        beforeEach(() => {
+          nock('http://localhost')
+            .get('/api/session')
+            .matchHeader('Authorization', 'Bearer jwt123')
+            .reply(200, responseBody, {'Content-Type': 'application/json'});
+        });
+
+        beforeEach(() => {
+          window.sessionStorage.setItem('jwt', 'jwt123');
+        });
+
+        it('it dispatches the correct actions and sets the JWT token in sessionStorage', (done) => {
+          const expectedActions = [
+            { type: actions.CHECK_LOGGED_IN_START },
+            { type: actions.CHECK_LOGGED_IN_SUCCESS, user: responseBody }
+          ];
+          const store = mockStore(initialState, expectedActions, () => {
+            expect(window.sessionStorage.getItem('jwt')).to.eql('jwt123');
+            done();
+          });
+          store.dispatch(actions.checkLoggedIn());
+        });
+      });
+
+      describe('when JWT is NOT set', () => {
+        beforeEach(() => {
+          window.sessionStorage.removeItem('jwt');
+        });
+
+        it('does not call API', (done) => {
+          const expectedActions = [
+            { type: actions.CHECK_LOGGED_IN_START },
+            { type: actions.CHECK_LOGGED_IN_FAILURE, error: 'Login Failed' }
+          ];
+          const store = mockStore(initialState, expectedActions, () =>
+          {
+            expect(window.sessionStorage.getItem('jwt')).to.eql(null);
+            done();
+          });
+          store.dispatch(actions.login());
+        });
+      });
+    });
+  });
+
   describe('login', () => {
     afterEach(() => { nock.cleanAll(); });
     const initialState = todoApp.INITIAL_STATE;

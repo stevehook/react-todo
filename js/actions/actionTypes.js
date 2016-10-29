@@ -42,10 +42,20 @@ export const FETCH_PROJECTS_FAILURE = 'FETCH_PROJECTS_FAILURE';
 export function checkLoggedIn() {
   return function (dispatch) {
     dispatch(checkLoggedInStart());
+    let jwt = window.sessionStorage.getItem('jwt');
+    if (!jwt) {
+      dispatch(loginFailure('Login Failed'));
+      return;
+    }
     let authService = new AuthService();
     return authService.checkLoggedIn()
-      .then(res => dispatch(loginSuccess(res.body)))
-      .catch(err => dispatch(loginFailure('Login Failed')));
+      .then((res) => {
+        dispatch(loginSuccess(res.body));
+      })
+      .catch((err) => {
+        window.sessionStorage.removeItem('jwt');
+        dispatch(loginFailure('Login Failed'));
+      });
   }
 };
 

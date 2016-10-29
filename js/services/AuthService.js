@@ -19,6 +19,7 @@ class AuthService extends ApiService {
     return this.promisify(
       request
         .get('/api/session')
+        .set('Authorization', `Bearer $(window.sessionStorage.getItem('jwt'))`)
         .set('Accept', 'application/json')
     );
   }

@@ -10,6 +10,7 @@ function mockStore(getState, expectedActions, done) {
   if (typeof done !== 'undefined' && typeof done !== 'function') {
     throw new Error('done should either be undefined or function.');
   }
+  let calledDone = false;
 
   function mockStoreWithoutMiddleware() {
     return {
@@ -23,11 +24,17 @@ function mockStore(getState, expectedActions, done) {
         try {
           expect(action).to.eql(expectedAction);
           if (done && !expectedActions.length) {
-            done();
+            if (!calledDone) {
+              calledDone = true;
+              done();
+            }
           }
           return action;
         } catch (e) {
-          done(e);
+          if (!calledDone) {
+            calledDone = true;
+            done(e);
+          }
         }
       }
     }
