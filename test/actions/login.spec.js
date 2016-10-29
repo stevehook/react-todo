@@ -15,14 +15,11 @@ describe('actions', () => {
         let responseBody = { user: { id: 123, name: 'Bob' }, jwt: 'jwt123' };
 
         beforeEach(() => {
+          window.sessionStorage.setItem('jwt', 'jwt123');
           nock('http://localhost')
             .get('/api/session')
-            .matchHeader('authorization', 'Bearer jwt123')
+            .matchHeader('Authorization', 'Bearer jwt123')
             .reply(200, responseBody, {'Content-Type': 'application/json'});
-        });
-
-        beforeEach(() => {
-          window.sessionStorage.setItem('jwt', 'jwt123');
         });
 
         it('it dispatches the correct actions and sets the JWT token in sessionStorage', (done) => {

@@ -17,12 +17,17 @@ describe('actions', () => {
       }
     };
 
+    beforeEach(() => {
+      window.sessionStorage.setItem('jwt', 'jwt123');
+    });
+
     describe('when /api/tasks succeeds', () => {
       let responseBody = [{ id: 123, title: 'Walk the dog' }];
 
       beforeEach(() => {
         nock('http://localhost')
           .get('/api/tasks')
+          .matchHeader('Authorization', 'Bearer jwt123')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
       });
 
@@ -34,12 +39,28 @@ describe('actions', () => {
         const store = mockStore(initialState, expectedActions, done);
         store.dispatch(actions.fetchTasks());
       });
+
+      describe('when JWT is not set', () => {
+        beforeEach(() => {
+          window.sessionStorage.removeItem('jwt');
+        });
+
+        it('it dispatches the correct actions', (done) => {
+          const expectedActions = [
+            { type: actions.FETCH_TASKS_START },
+            { type: actions.FETCH_TASKS_FAILURE, error: 'API Failed' }
+          ];
+          const store = mockStore(initialState, expectedActions, done);
+          store.dispatch(actions.fetchTasks());
+        });
+      });
     });
 
     describe('when /api/tasks fails', () => {
       beforeEach(() => {
         nock('http://localhost')
           .get('/api/tasks')
+          .matchHeader('Authorization', 'Bearer jwt123')
           .reply(400, {}, {'Content-Type': 'application/json'});
       });
 

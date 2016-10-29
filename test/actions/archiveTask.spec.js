@@ -20,12 +20,17 @@ describe('actions', () => {
       }
     };
 
+    beforeEach(() => {
+      window.sessionStorage.setItem('jwt', 'jwt123');
+    });
+
     describe('when /api/tasks/:id/archive succeeds', () => {
       let responseBody = { id: 123, title: 'Cook dinner', archived: true };
 
       beforeEach(() => {
         nock('http://localhost')
           .post('/api/tasks/123/archive')
+          .matchHeader('Authorization', 'Bearer jwt123')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
       });
 
@@ -43,6 +48,7 @@ describe('actions', () => {
       beforeEach(() => {
         nock('http://localhost')
           .post('/api/tasks/123/archive')
+          .matchHeader('Authorization', 'Bearer jwt123')
           .reply(400, {}, {'Content-Type': 'application/json'});
       });
 

@@ -17,12 +17,17 @@ describe('actions', () => {
       }
     };
 
+    beforeEach(() => {
+      window.sessionStorage.setItem('jwt', 'jwt123');
+    });
+
     describe('when /api/tasks succeeds', () => {
       let responseBody = { id: 123, title: 'Walk the dog', completed: false };
 
       beforeEach(() => {
         nock('http://localhost')
           .post('/api/tasks')
+          .matchHeader('Authorization', 'Bearer jwt123')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
       });
 
@@ -40,6 +45,7 @@ describe('actions', () => {
       beforeEach(() => {
         nock('http://localhost')
           .post('/api/tasks')
+          .matchHeader('Authorization', 'Bearer jwt123')
           .reply(400, {}, {'Content-Type': 'application/json'});
       });
 

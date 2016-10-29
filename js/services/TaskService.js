@@ -6,6 +6,7 @@ class TaskService extends ApiService {
     return this.promisify(
       request
         .get('/api/tasks')
+        .set('Authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set('Accept', 'application/json')
     );
   }
@@ -14,6 +15,7 @@ class TaskService extends ApiService {
     return this.promisify(
       request
         .post('/api/tasks')
+        .set('Authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .send({ task: { title: title } })
         .set('Accept', 'application/json')
     );
@@ -23,6 +25,7 @@ class TaskService extends ApiService {
     return this.promisify(
       request
         .post(`/api/tasks/${taskId}/complete`)
+        .set('Authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );
   }
@@ -31,6 +34,7 @@ class TaskService extends ApiService {
     return this.promisify(
       request
         .post(`/api/tasks/${taskId}/archive`)
+        .set('Authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );
   }
