@@ -7,7 +7,7 @@ class AuthService extends ApiService {
       request
         .post('/api/sessions')
         .send({ user: { email: email, password: password } })
-        .set('Accept', 'application/json')
+        .set('accept', 'application/json')
     );
   }
 
@@ -19,8 +19,8 @@ class AuthService extends ApiService {
     return this.promisify(
       request
         .get('/api/session')
-        .set('Authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .set('Accept', 'application/json')
+        .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
+        .set('accept', 'application/json')
     );
   }
 };

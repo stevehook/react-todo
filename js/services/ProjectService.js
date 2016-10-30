@@ -8,7 +8,7 @@ class ProjectService extends ApiService {
     return this.promisify(
       request
         .get('/api/projects')
-        .set('Authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
+        .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set('Accept', 'application/json')
     );
   }
@@ -18,7 +18,7 @@ class ProjectService extends ApiService {
       request
         .post('/api/projects')
         .send({ project: { name: name } })
-        .set('Authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
+        .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set('Accept', 'application/json')
     );
   }

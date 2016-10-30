@@ -79,11 +79,11 @@ export function login(email, password) {
     return authService.login(email, password)
       .then((res) => {
         window.sessionStorage.setItem('jwt', res.body.jwt);
-        return dispatch(loginSuccess(res.body));
+        return dispatch(loginSuccess(res.body.user));
       })
       .catch((err) => {
         window.sessionStorage.removeItem('jwt');
-        dispatch(loginFailure('Login Failed'));
+        return dispatch(loginFailure('Login Failed'));
       });
   }
 };

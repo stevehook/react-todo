@@ -31,7 +31,7 @@ export const TodoList = React.createClass({
   	return (
       <div>
         <TodoNewTask task={this.props.newTask} onNewTaskInput={this.handleNewTaskInput} />
-        <div><ul className='task-list'>{this.props.tasks.map((task) => {
+        <div><ul className='task-list'>{this.props.collection.map((task) => {
           return (
             <TodoTask key={'task-' + task.id} task={task} onCompleteTask={this.handleCompleteTask} onArchiveTask={this.handleArchiveTask}/>
           );
@@ -47,4 +47,4 @@ function select(state) {
   return state.data;
 }
 
-export default connect(state => state.data)(TodoList);
+export default connect(state => state.data.tasks)(TodoList);

@@ -27,7 +27,7 @@ describe('actions', () => {
       beforeEach(() => {
         nock('http://localhost')
           .get('/api/projects')
-          .matchHeader('Authorization', 'Bearer jwt123')
+          .matchHeader('authorization', 'Bearer jwt123')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
       });
 
@@ -60,7 +60,7 @@ describe('actions', () => {
       beforeEach(() => {
         nock('http://localhost')
           .get('/api/projects')
-          .matchHeader('Authorization', 'Bearer jwt123')
+          .matchHeader('authorization', 'Bearer jwt123')
           .reply(400, {}, {'Content-Type': 'application/json'});
       });
 

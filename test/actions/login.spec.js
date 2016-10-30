@@ -18,7 +18,7 @@ describe('actions', () => {
           window.sessionStorage.setItem('jwt', 'jwt123');
           nock('http://localhost')
             .get('/api/session')
-            .matchHeader('Authorization', 'Bearer jwt123')
+            .matchHeader('authorization', 'Bearer jwt123')
             .reply(200, responseBody, {'Content-Type': 'application/json'});
         });
 

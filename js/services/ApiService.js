@@ -10,7 +10,7 @@ class ApiService {
   }
 
   getAuthenticatedRequest() {
-    return request.set('Authorization', `Bearer $(sessionStorage.getItem('jwt'))`);
+    return request.set('authorization', `Bearer $(sessionStorage.getItem('jwt'))`);
   }
 };
 
