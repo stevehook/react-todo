@@ -1,6 +1,7 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const AuthService = require('../services/AuthService');
+import React  from 'react';
+import ReactDOM from 'react-dom';
+import { login } from '../actions/actionTypes';
+import { connect } from 'react-redux';
 
 const LoginForm = React.createClass({
   getInitialState: function() {
@@ -9,6 +10,11 @@ const LoginForm = React.createClass({
 
   componentDidMount: function(){
     this.refs.loginEmail.focus();
+  },
+
+  onLogin: function(email, password) {
+    const { dispatch } = this.props;
+    dispatch(login(email, password));
   },
 
   render: function() {
@@ -25,12 +31,10 @@ const LoginForm = React.createClass({
 
   handleSubmit: function(event) {
     event.preventDefault();
-    let _this = this;
-
     let email = ReactDOM.findDOMNode(this.refs.loginEmail).value.trim();
     let password = ReactDOM.findDOMNode(this.refs.loginPassword).value.trim();
-    _this.props.onLogin(email, password);
+    this.onLogin(email, password);
   }
 });
 
-module.exports = LoginForm;
+export default connect(null)(LoginForm);

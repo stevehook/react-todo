@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import { Router, Route, hashHistory } from 'react-router';
 import ProjectList from './ProjectList.react';
 import LoginForm from './LoginForm.react';
+import Home from './Home.react';
 import AuthService from '../services/AuthService';
 import { connect, Provider } from 'react-redux';
 import { checkLoggedIn, login } from '../actions/actionTypes';
@@ -17,23 +19,32 @@ export const TodoApp = React.createClass({
   },
 
   render: function() {
+    return (
+      <Router history={hashHistory}>
+        <Route path="/" component={Home}>
+        <Route path="login" component={LoginForm}/>
+        <Route path="projects" component={ProjectList}/>
+        <Route path="*" component={Home}/>
+        </Route>
+      </Router>
+    );
     // TODO: Use a generic component to handle this switch
-    if (this.props.authentication && this.props.authentication.loggedIn) {
-      const store = this.props.store;
-      return (
-        <div>
-          <Provider store={store}>
-            <ProjectList/>
-          </Provider>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <LoginForm onLogin={this.handleLogin}/>
-        </div>
-      );
-    }
+    // if (this.props.authentication && this.props.authentication.loggedIn) {
+    //   const store = this.props.store;
+    //   return (
+    //     <div>
+    //       <Provider store={store}>
+    //         <ProjectList/>
+    //       </Provider>
+    //     </div>
+    //   );
+    // } else {
+    //   return (
+    //     <div>
+    //       <LoginForm onLogin={this.handleLogin}/>
+    //     </div>
+    //   );
+    // }
   }
 });
 
