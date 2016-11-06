@@ -8,7 +8,7 @@ const TaskService = require('../../js/services/TaskService');
 
 let props = {
   newTask: {},
-  tasks: [
+  collection: [
       { id: 123, title: 'Walk the dog' },
       { id: 456, title: 'Clean the kitchen' },
       { id: 789, title: 'Read a good book' },
@@ -17,7 +17,7 @@ let props = {
 
 function setup() {
   let renderer = TestUtils.createRenderer();
-  renderer.render(<TodoList tasks={props.tasks}/>);
+  renderer.render(<TodoList tasks={props}/>);
   let output = renderer.getRenderOutput();
 
   return {

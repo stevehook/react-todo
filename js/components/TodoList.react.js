@@ -24,14 +24,14 @@ export const TodoList = React.createClass({
   },
 
   unarchivedTasks: function() {
-    return props.data.tasks;
+    return props.tasks.collection;
   },
 
   render: function() {
   	return (
       <div>
-        <TodoNewTask task={this.props.newTask} onNewTaskInput={this.handleNewTaskInput} />
-        <div><ul className='task-list'>{this.props.collection.map((task) => {
+        <TodoNewTask task={this.props.tasks.newTask} onNewTaskInput={this.handleNewTaskInput} />
+        <div><ul className='task-list'>{this.props.tasks.collection.map((task) => {
           return (
             <TodoTask key={'task-' + task.id} task={task} onCompleteTask={this.handleCompleteTask} onArchiveTask={this.handleArchiveTask}/>
           );
