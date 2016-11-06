@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import TodoList from './TodoList.react';
+import ProjectList from './ProjectList.react';
 import LoginForm from './LoginForm.react';
 import AuthService from '../services/AuthService';
 import { connect, Provider } from 'react-redux';
@@ -17,13 +17,13 @@ export const TodoApp = React.createClass({
   },
 
   render: function() {
-    // TODO: Use a router to handle this switch
+    // TODO: Use a generic component to handle this switch
     if (this.props.authentication && this.props.authentication.loggedIn) {
       const store = this.props.store;
       return (
         <div>
           <Provider store={store}>
-            <TodoList/>
+            <ProjectList/>
           </Provider>
         </div>
       );
