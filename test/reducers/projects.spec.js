@@ -68,7 +68,7 @@ describe('Adding projects', () => {
   });
 });
 
-describe('todos FETCH_PROJECTS_SUCCESS', () => {
+describe('todoApp FETCH_PROJECTS_SUCCESS', () => {
   let projects = [
     { id: 123, name: 'Housework' },
     { id: 456, name: 'Gardening' },

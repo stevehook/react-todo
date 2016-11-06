@@ -66,7 +66,7 @@ describe('Adding tasks', () => {
   });
 });
 
-describe('todos FETCH_TASKS_SUCCESS', () => {
+describe('todoApp FETCH_TASKS_SUCCESS', () => {
   let tasks = [
     { id: 123, title: 'Walk the dog', completed: true },
     { id: 456, title: 'Cook dinner', completed: false },
