@@ -52,11 +52,9 @@ export function checkLoggedIn() {
     let authService = new AuthService();
     return authService.checkLoggedIn()
       .then((res) => {
-        console.log('Check logged in succeeded');
         dispatch(checkLoggedInSuccess(res.body));
       })
       .catch((err) => {
-        console.log('Check logged in failed', err);
         window.sessionStorage.removeItem('jwt');
         dispatch(checkLoggedInFailure('Login Failed'));
       });
@@ -85,7 +83,6 @@ export function login(email, password, redirectRoute) {
         return dispatch(loginSuccess(res.body.user, redirectRoute));
       })
       .catch((err) => {
-        console.log('Login failed', err);
         window.sessionStorage.removeItem('jwt');
         return dispatch(loginFailure('Login Failed'));
       });
@@ -97,6 +94,7 @@ export function loginStart() {
 };
 
 export function loginSuccess(user, redirectRoute = '/') {
+  console.log('calling...', hashHistory.push);
   hashHistory.push(redirectRoute);
   return { type: LOGIN_SUCCESS, user };
 };

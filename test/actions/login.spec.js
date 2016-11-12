@@ -1,13 +1,17 @@
-const expect = require('chai').expect;
-const request = require('superagent');
+import expect from 'expect';
+import request from 'superagent';
 import * as actions from '../../js/actions/actionTypes';
 import nock from 'nock';
-const mockStore = require('../mockStore');
-const todoApp = require('../../js/reducers/todoApp');
+import mockStore from '../mockStore';
+import todoApp from '../../js/reducers/todoApp';
+import { hashHistory } from 'react-router';
 
 describe('actions', () => {
   describe('checkLoggedIn', () => {
-    afterEach(() => { nock.cleanAll(); });
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
     const initialState = todoApp.INITIAL_STATE;
 
     describe('when GET /api/session succeeds', () => {
@@ -29,7 +33,7 @@ describe('actions', () => {
           ];
           const store = mockStore(initialState, expectedActions, (e) => {
             if (!e) {
-              expect(window.sessionStorage.getItem('jwt')).to.eql('jwt123');
+              expect(window.sessionStorage.getItem('jwt')).toEqual('jwt123');
             }
             done(e);
           });
@@ -49,7 +53,7 @@ describe('actions', () => {
           ];
           const store = mockStore(initialState, expectedActions, () =>
           {
-            expect(window.sessionStorage.getItem('jwt')).to.eql(null);
+            expect(window.sessionStorage.getItem('jwt')).toEqual(null);
             done();
           });
           store.dispatch(actions.login());
@@ -59,7 +63,16 @@ describe('actions', () => {
   });
 
   describe('login', () => {
-    afterEach(() => { nock.cleanAll(); });
+    let push;
+
+    beforeEach(() => {
+      push = expect.spyOn(hashHistory, 'push');
+    });
+
+    afterEach(() => {
+      nock.cleanAll();
+      expect.restoreSpies();
+    });
     const initialState = todoApp.INITIAL_STATE;
 
     describe('when POST /api/sessions succeeds', () => {
@@ -79,10 +92,11 @@ describe('actions', () => {
         ];
         const store = mockStore(initialState, expectedActions, () =>
         {
-          expect(window.sessionStorage.getItem('jwt')).to.eql('jwt123');
+          expect(window.sessionStorage.getItem('jwt')).toEqual('jwt123');
+          expect(push).toHaveBeenCalledWith('/foo');
           done();
         });
-        store.dispatch(actions.login());
+        store.dispatch(actions.login('bob@example.com', 'secret', '/foo'));
       });
     });
 
@@ -101,7 +115,7 @@ describe('actions', () => {
         ];
         const store = mockStore(initialState, expectedActions, () =>
         {
-          expect(window.sessionStorage.getItem('jwt')).to.eql(null);
+          expect(window.sessionStorage.getItem('jwt')).toEqual(null);
           done();
         });
         store.dispatch(actions.login());
