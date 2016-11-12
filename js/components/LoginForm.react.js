@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 class LoginForm extends React.Component {
   componentDidMount() {
     this.refs.loginEmail.focus();
+    this.redirectRoute = this.props.location.query.next || '/';
   }
 
   onLogin(email, password) {
     const { dispatch } = this.props;
-    dispatch(login(email, password));
+    dispatch(login(email, password, this.redirectRoute));
   }
 
   handleSubmit(event) {

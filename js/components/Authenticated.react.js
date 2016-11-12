@@ -22,9 +22,10 @@ const authenticated = (Component) => {
     render() {
       return (
         <div>
-        {this.props.loggedIn === true
-          ? <Component {...this.props}/>
-          : null
+        {
+          this.props.loggedIn === true
+            ? <Component {...this.props}/>
+            : null
         }
         </div>
       )

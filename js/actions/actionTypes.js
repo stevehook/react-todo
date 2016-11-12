@@ -1,6 +1,7 @@
-const TaskService = require('../services/TaskService');
-const ProjectService = require('../services/ProjectService');
-const AuthService = require('../services/AuthService');
+import TaskService from '../services/TaskService';
+import ProjectService from '../services/ProjectService';
+import AuthService from '../services/AuthService';
+import { hashHistory } from 'react-router';
 
 export const CHECK_LOGGED_IN_START = 'CHECK_LOGGED_IN_START';
 export const CHECK_LOGGED_IN_SUCCESS = 'CHECK_LOGGED_IN_SUCCESS';
@@ -74,14 +75,14 @@ export function checkLoggedInFailure(error) {
   return { type: CHECK_LOGGED_IN_FAILURE, error };
 };
 
-export function login(email, password) {
+export function login(email, password, redirectRoute) {
   return function (dispatch) {
     dispatch(loginStart());
     let authService = new AuthService();
     return authService.login(email, password)
       .then((res) => {
         window.sessionStorage.setItem('jwt', res.body.jwt);
-        return dispatch(loginSuccess(res.body.user));
+        return dispatch(loginSuccess(res.body.user, redirectRoute));
       })
       .catch((err) => {
         console.log('Login failed', err);
@@ -95,7 +96,8 @@ export function loginStart() {
   return { type: LOGIN_START };
 };
 
-export function loginSuccess(user) {
+export function loginSuccess(user, redirectRoute = '/') {
+  hashHistory.push(redirectRoute);
   return { type: LOGIN_SUCCESS, user };
 };
 
