@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Router, Route, hashHistory } from 'react-router';
 import ProjectList from './ProjectList.react';
 import LoginForm from './LoginForm.react';
 import Home from './Home.react';

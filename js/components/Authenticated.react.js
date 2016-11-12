@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
 
 const authenticated = (Component) => {
   class Authenticated extends React.Component {
@@ -13,7 +14,8 @@ const authenticated = (Component) => {
 
     checkAuth(loggedIn) {
       if (!loggedIn) {
-        console.log('TODO: redirect to login page...');
+        let redirectAfterLogin = this.props.location.pathname;
+        hashHistory.push(`/login?next=${redirectAfterLogin}`);
       }
     }
 
@@ -35,5 +37,4 @@ const authenticated = (Component) => {
 
   return connect(mapStateToProps)(Authenticated);
 }
-console.log(authenticated);
 export default authenticated;
