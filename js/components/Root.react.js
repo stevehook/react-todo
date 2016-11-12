@@ -3,6 +3,7 @@ import { Router, Route, hashHistory } from 'react-router';
 import ProjectList from './ProjectList.react';
 import LoginForm from './LoginForm.react';
 import Home from './Home.react';
+import Authenticated from './Authenticated.react';
 import NotFound from './NotFound.react';
 import AuthService from '../services/AuthService';
 import { connect, Provider } from 'react-redux';
@@ -14,7 +15,7 @@ const Root = React.createClass({
       <Router history={hashHistory}>
         <Route path="/" component={Home}>
           <Route path="login" component={LoginForm}/>
-          <Route path="projects" component={ProjectList}/>
+          <Route path="projects" component={Authenticated(ProjectList)}/>
           <Route path="*" component={NotFound}/>
         </Route>
       </Router>

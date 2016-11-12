@@ -4,20 +4,20 @@ import { login } from '../actions/actionTypes';
 import { connect } from 'react-redux';
 
 const LoginForm = React.createClass({
-  getInitialState: function() {
+  getInitialState: () => {
     return {};
   },
 
-  componentDidMount: function(){
+  componentDidMount: () => {
     this.refs.loginEmail.focus();
   },
 
-  onLogin: function(email, password) {
+  onLogin: (email, password) => {
     const { dispatch } = this.props;
     dispatch(login(email, password));
   },
 
-  render: function() {
+  render: () => {
     return (
       <div className="form-container">
         <form onSubmit={this.handleSubmit}>
@@ -29,7 +29,7 @@ const LoginForm = React.createClass({
     );
   },
 
-  handleSubmit: function(event) {
+  handleSubmit: (event) => {
     event.preventDefault();
     let email = ReactDOM.findDOMNode(this.refs.loginEmail).value.trim();
     let password = ReactDOM.findDOMNode(this.refs.loginPassword).value.trim();
