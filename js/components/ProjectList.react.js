@@ -25,4 +25,3 @@ class ProjectList extends React.Component {
 }
 
 export default connect(state => state.data.projects)(ProjectList);
-

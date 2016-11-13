@@ -207,4 +207,3 @@ export function fetchProjectsSuccess(projects) {
 export function fetchProjectsFailure(error) {
   return { type: FETCH_PROJECTS_FAILURE, error };
 };
-
