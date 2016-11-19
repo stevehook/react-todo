@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Router, Route, hashHistory } from 'react-router';
 import ProjectList from './ProjectList.react';
+import TaskList from './TaskList.react';
 import LoginForm from './LoginForm.react';
 import Home from './Home.react';
 import Authenticated from './Authenticated.react';
@@ -15,7 +16,8 @@ const Root = React.createClass({
       <Router history={hashHistory}>
         <Route path="/" component={Home}>
           <Route path="login" component={LoginForm}/>
-          <Route path="projects" component={Authenticated(ProjectList)}/>
+          <Route path="projects" component={ProjectList}/>
+          <Route path="projects/:projectId/tasks" component={Authenticated(TaskList)}/>
           <Route path="*" component={NotFound}/>
         </Route>
       </Router>

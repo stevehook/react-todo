@@ -1,13 +1,14 @@
-const React = require('react');
+import React from 'react';
+import { Link } from 'react-router';
 
-const ProjectListItem = React.createClass({
-  render: function() {
+class ProjectListItem extends React.Component {
+  render() {
   	return (
       <li className=''>
-        <span>{this.props.project.name}</span>
+        <Link to={ `/projects/${this.props.project.id}/tasks` }>{ this.props.project.name }</Link>
       </li>
   	);
-  },
-});
+  }
+}
 
 module.exports = ProjectListItem;
