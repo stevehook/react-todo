@@ -94,7 +94,6 @@ export function loginStart() {
 };
 
 export function loginSuccess(user, redirectRoute = '/') {
-  console.log('calling...', hashHistory.push);
   hashHistory.push(redirectRoute);
   return { type: LOGIN_SUCCESS, user };
 };

@@ -10,19 +10,26 @@ import AuthService from '../services/AuthService';
 import { connect, Provider } from 'react-redux';
 import { checkLoggedIn, login } from '../actions/actionTypes';
 
-const Root = React.createClass({
-  render: function() {
+const routes = (
+  <Route path="/" component={Home}>
+    <Route path="login" component={LoginForm}/>
+    <Route path="projects" component={Authenticated(ProjectList)}/>
+    <Route path="projects/:projectId/tasks" component={Authenticated(TaskList)}/>
+    <Route path="*" component={NotFound}/>
+  </Route>
+);
+
+class Root extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(checkLoggedIn());
+  }
+
+  render() {
     return (
-      <Router history={hashHistory}>
-        <Route path="/" component={Home}>
-          <Route path="login" component={LoginForm}/>
-          <Route path="projects" component={Authenticated(ProjectList)}/>
-          <Route path="projects/:projectId/tasks" component={Authenticated(TaskList)}/>
-          <Route path="*" component={NotFound}/>
-        </Route>
-      </Router>
+      <Router history={hashHistory}>{ routes }</Router>
     );
   }
-});
+}
 
-module.exports = Root;
+export default connect(state => state)(Root);
