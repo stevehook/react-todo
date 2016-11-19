@@ -16,7 +16,7 @@ const Root = React.createClass({
       <Router history={hashHistory}>
         <Route path="/" component={Home}>
           <Route path="login" component={LoginForm}/>
-          <Route path="projects" component={ProjectList}/>
+          <Route path="projects" component={Authenticated(ProjectList)}/>
           <Route path="projects/:projectId/tasks" component={Authenticated(TaskList)}/>
           <Route path="*" component={NotFound}/>
         </Route>
