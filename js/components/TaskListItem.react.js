@@ -1,13 +1,13 @@
 import React from 'react';
 
-const TaskListItem = React.createClass({
-  render: () => {
+class TaskListItem extends React.Component {
+  render() {
   	return (
       <li className=''>
-        { this.props.task.name }
+        { this.props.task.title }
       </li>
   	);
   }
-});
+}
 
 module.exports = TaskListItem;

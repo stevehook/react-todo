@@ -9,10 +9,14 @@ class TaskList extends React.Component {
     this.props.dispatch(fetchTasks(this.props.params.projectId));
   }
 
+  tasksForProject() {
+    return this.props.collection.filter(task => task.project_id === parseInt(this.props.params.projectId));
+  }
+
   render() {
     return (
       <div>
-        <div><ul className='task-list'>{this.props.collection.map((task) => {
+        <div><ul className='task-list'>{ this.tasksForProject.bind(this)().map((task) => {
           return (
             <TaskListItem key={'task-' + task.id} task={task}/>
           );

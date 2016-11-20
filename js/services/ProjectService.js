@@ -13,6 +13,15 @@ class ProjectService extends ApiService {
     );
   }
 
+  getTasks(projectID) {
+    return this.promisify(
+      request
+        .get(`/api/projects/${projectID}/tasks`)
+        .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
+        .set('Accept', 'application/json')
+    );
+  }
+
   create(name) {
     return this.promisify(
       request
