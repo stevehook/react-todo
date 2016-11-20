@@ -1,7 +1,7 @@
 import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, CHECK_LOGGED_IN_START, CHECK_LOGGED_IN_SUCCESS, CHECK_LOGGED_IN_FAILURE } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  loggedIn: false,
+  loggedIn: null,
   jwt: null,
   user: null,
 };

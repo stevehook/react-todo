@@ -8,17 +8,23 @@ import { Provider } from 'react-redux';
 import TodoApp from './components/TodoApp.react';
 import Root from './components/Root.react';
 import todoApp from './reducers/todoApp';
+// import { loginUserSuccess } from './actions/actionTypes';
 
 import thunkMiddleware from 'redux-thunk';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 let store = createStoreWithMiddleware(todoApp, {
   authentication: {
-    loggedIn: false,
+    loggedIn: undefined,
     user: null
   },
   data: {}
 });
+
+// let jwt = localStorage.getItem('jwt');
+// if (jwt !== null) {
+//   store.dispatch(loginUserSuccess(jwt));
+// }
 
 // TODO: Do I really need to pass the store as prop to TodoApp as well?
 ReactDOM.render(<Provider store={store}><Root/></Provider>,

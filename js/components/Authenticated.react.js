@@ -13,13 +13,18 @@ const authenticated = (Component) => {
     }
 
     checkAuth(loggedIn) {
-      if (!loggedIn) {
+      if (loggedIn === false) {
         let redirectAfterLogin = this.props.location.pathname;
         hashHistory.push(`/login?next=${redirectAfterLogin}`);
       }
     }
 
     render() {
+      if (this.props.loggedIn == null) {
+        return (
+          <div>Logging in...</div>
+        );
+      }
       return (
         <div>
         {

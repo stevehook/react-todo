@@ -46,15 +46,17 @@ export function checkLoggedIn() {
     dispatch(checkLoggedInStart());
     let jwt = window.sessionStorage.getItem('jwt');
     if (!jwt) {
-      dispatch(loginFailure('Login Failed'));
+      dispatch(checkLoggedInFailure('Login Failed'));
       return;
     }
     let authService = new AuthService();
     return authService.checkLoggedIn()
       .then((res) => {
+        console.log('checkLoggedInSuccess');
         dispatch(checkLoggedInSuccess(res.body));
       })
       .catch((err) => {
+        console.log('checkLoggedInFailure');
         window.sessionStorage.removeItem('jwt');
         dispatch(checkLoggedInFailure('Login Failed'));
       });
