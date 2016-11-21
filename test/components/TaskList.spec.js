@@ -57,5 +57,8 @@ describe('TaskList.react', () => {
   it('renders a TaskListItem component for each project', () => {
     let taskListItems = TestUtils.scryRenderedComponentsWithType(instance, TaskListItem);
     expect(taskListItems.length).toEqual(3);
+    let ul = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+    expect(ul.textContent).toMatch('Walk the dog');
+    expect(ul.textContent).toNotMatch('Mow the lawn');
   });
 });
