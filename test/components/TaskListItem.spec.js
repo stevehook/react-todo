@@ -5,7 +5,7 @@ import TaskListItem from '../../js/components/TaskListItem.react';
 
 let task = {
   id: 123,
-  project_id: 123,
+  project_id: 456,
   title: 'Walk the dog'
 };
 
