@@ -11,10 +11,10 @@ class TaskService extends ApiService {
     );
   }
 
-  create(title) {
+  create(projectId, title) {
     return this.promisify(
       request
-        .post('/api/tasks')
+        .post(`/api/projects/${projectId}/tasks`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .send({ task: { title: title } })
         .set('Accept', 'application/json')
