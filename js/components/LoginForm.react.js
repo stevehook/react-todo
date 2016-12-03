@@ -25,9 +25,24 @@ class LoginForm extends React.Component {
     return (
       <div className="form-container">
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <input type='text' className='form-control user-email' ref='loginEmail' placeholder='Enter your email address' defaultValue='bob@example.com'/>
-          <input type='pasword' className='form-control user-password' ref='loginPassword' defaultValue='secret'/>
-          <button type='submit' className='btn btn-default'>Login</button>
+          <input
+            type='text'
+            className='form-control user-email'
+            ref='loginEmail'
+            placeholder='Enter your email address'
+            defaultValue='bob@example.com'
+          />
+          <input
+            type='pasword'
+            className='form-control user-password'
+            ref='loginPassword'
+            defaultValue='secret'
+          />
+          <button
+            type='submit'
+            className='btn btn-default'>
+              Login
+          </button>
         </form>
       </div>
     );

@@ -42,7 +42,7 @@ class TaskList extends React.Component {
   }
 
   handleNewTask(title) {
-    this.props.dispatch(addTask(title));
+    this.props.dispatch(addTask(this.props.params.projectId, title));
   }
 }
 

@@ -126,11 +126,11 @@ export function fetchTasksFailure(error) {
   return { type: FETCH_TASKS_FAILURE, error };
 };
 
-export function addTask(title) {
+export function addTask(projectId, title) {
   return function (dispatch) {
     dispatch(addTaskStart());
     let taskService = new TaskService();
-    return taskService.create(title)
+    return taskService.create(projectId, title)
       .then(res => dispatch(addTaskSuccess(res.body)))
       .catch(err => dispatch(addTaskFailure('API Failed')));
   }
