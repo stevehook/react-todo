@@ -24,12 +24,12 @@ describe('actions', () => {
       window.sessionStorage.setItem('jwt', 'jwt123');
     });
 
-    describe('when /api/tasks/:id/archive succeeds', () => {
+    describe('when /api/projects/:project_id/tasks/:id/archive succeeds', () => {
       let responseBody = { id: 123, title: 'Cook dinner', archived: true };
 
       beforeEach(() => {
         nock('http://localhost')
-          .post('/api/tasks/123/archive')
+          .post('/api/projects/321/tasks/123/archive')
           .matchHeader('authorization', 'Bearer jwt123')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
       });
@@ -40,14 +40,14 @@ describe('actions', () => {
           { type: actions.ARCHIVE_TASK_SUCCESS, task: responseBody }
         ];
         const store = mockStore(initialState, expectedActions, done);
-        store.dispatch(actions.archiveTask(123));
+        store.dispatch(actions.archiveTask(321, 123));
       });
     });
 
-    describe('when /api/tasks/:id/archive fails', () => {
+    describe('when /api/projects/:project_id/tasks/:id/archive fails', () => {
       beforeEach(() => {
         nock('http://localhost')
-          .post('/api/tasks/123/archive')
+          .post('/api/projects/321/tasks/123/archive')
           .matchHeader('authorization', 'Bearer jwt123')
           .reply(400, {}, {'Content-Type': 'application/json'});
       });
@@ -58,7 +58,7 @@ describe('actions', () => {
           { type: actions.ARCHIVE_TASK_FAILURE, error: 'API Failed' }
         ];
         const store = mockStore(initialState, expectedActions, done);
-        store.dispatch(actions.archiveTask(123));
+        store.dispatch(actions.archiveTask(321, 123));
       });
     });
   });

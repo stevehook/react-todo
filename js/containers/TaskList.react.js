@@ -34,11 +34,11 @@ class TaskList extends React.Component {
   }
 
   handleCompleteTask(taskId) {
-    this.props.dispatch(completeTask(taskId));
+    this.props.dispatch(completeTask(this.props.projectId, taskId));
   }
 
   handleArchiveTask(taskId) {
-    this.props.dispatch(archiveTask(taskId));
+    this.props.dispatch(archiveTask(this.props.projectId, taskId));
   }
 
   handleNewTask(title) {

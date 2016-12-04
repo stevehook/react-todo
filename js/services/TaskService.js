@@ -21,19 +21,19 @@ class TaskService extends ApiService {
     );
   }
 
-  complete(taskId) {
+  complete(projectId, taskId) {
     return this.promisify(
       request
-        .post(`/api/tasks/${taskId}/complete`)
+        .post(`/api/projects/${projectId}/tasks/${taskId}/complete`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );
   }
 
-  archive(taskId) {
+  archive(projectId, taskId) {
     return this.promisify(
       request
-        .post(`/api/tasks/${taskId}/archive`)
+        .post(`/api/projects/${projectId}/tasks/${taskId}/archive`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );
