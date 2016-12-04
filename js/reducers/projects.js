@@ -1,4 +1,4 @@
-const todos = require('./todos');
+const tasks = require('./tasks');
 
 import { ADD_PROJECT, ADD_PROJECT_START, ADD_PROJECT_SUCCESS, ADD_PROJECT_FAILURE,
   FETCH_PROJECTS, FETCH_PROJECTS_START, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE } from '../actions/actionTypes';

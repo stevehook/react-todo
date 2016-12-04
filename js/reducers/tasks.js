@@ -27,7 +27,7 @@ function removeTask(state, taskId) {
   });
 }
 
-function todos(state = INITIAL_STATE, action) {
+function tasks(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_TASK_SUCCESS:
       return Object.assign({}, state, {
@@ -55,6 +55,6 @@ function todos(state = INITIAL_STATE, action) {
   }
 };
 
-todos.INITIAL_STATE = INITIAL_STATE;
+tasks.INITIAL_STATE = INITIAL_STATE;
 
-module.exports = todos;
+module.exports = tasks;

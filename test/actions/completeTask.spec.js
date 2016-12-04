@@ -10,9 +10,9 @@ describe('actions', () => {
     const initialState = {
       data: {
         tasks: [
-          { id: 123, title: 'Cook dinner', completed: false },
-          { id: 456, title: 'Feed the kids', completed: false },
-          { id: 789, title: 'Feed the wife', completed: false }
+          { project_id: 321, id: 123, title: 'Cook dinner', completed: false },
+          { project_id: 321, id: 456, title: 'Feed the kids', completed: false },
+          { project_id: 321, id: 789, title: 'Feed the wife', completed: false }
         ]
       },
       authentication: {
@@ -25,12 +25,12 @@ describe('actions', () => {
       window.sessionStorage.setItem('jwt', 'jwt123');
     });
 
-    describe('when /api/tasks succeeds', () => {
+    describe('when /api/project/:projectId/tasks succeeds', () => {
       let responseBody = { id: 123, title: 'Cook dinner', completed: true };
 
       beforeEach(() => {
         nock('http://localhost')
-          .post('/api/tasks/123/complete')
+          .patch('/api/projects/321/tasks/123/complete')
           .matchHeader('authorization', 'Bearer jwt123')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
       });
@@ -41,14 +41,14 @@ describe('actions', () => {
           { type: actions.COMPLETE_TASK_SUCCESS, task: responseBody }
         ];
         const store = mockStore(initialState, expectedActions, done);
-        store.dispatch(actions.completeTask(123));
+        store.dispatch(actions.completeTask(321, 123));
       });
     });
 
-    describe('when /api/tasks fails', () => {
+    describe('when /api/project/:project_id/tasks fails', () => {
       beforeEach(() => {
         nock('http://localhost')
-          .post('/api/tasks/123/complete')
+          .patch('/api/projects/321/tasks/123/complete')
           .matchHeader('authorization', 'Bearer jwt123')
           .reply(400, {}, {'Content-Type': 'application/json'});
       });
@@ -59,9 +59,8 @@ describe('actions', () => {
           { type: actions.COMPLETE_TASK_FAILURE, error: 'API Failed' }
         ];
         const store = mockStore(initialState, expectedActions, done);
-        store.dispatch(actions.completeTask(123));
+        store.dispatch(actions.completeTask(321, 123));
       });
     });
   });
 });
-

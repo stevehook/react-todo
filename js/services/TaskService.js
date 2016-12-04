@@ -11,29 +11,29 @@ class TaskService extends ApiService {
     );
   }
 
-  create(title) {
+  create(projectId, title) {
     return this.promisify(
       request
-        .post('/api/tasks')
+        .post(`/api/projects/${projectId}/tasks`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .send({ task: { title: title } })
         .set('Accept', 'application/json')
     );
   }
 
-  complete(taskId) {
+  complete(projectId, taskId) {
     return this.promisify(
       request
-        .post(`/api/tasks/${taskId}/complete`)
+        .patch(`/api/projects/${projectId}/tasks/${taskId}/complete`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );
   }
 
-  archive(taskId) {
+  archive(projectId, taskId) {
     return this.promisify(
       request
-        .post(`/api/tasks/${taskId}/archive`)
+        .patch(`/api/projects/${projectId}/tasks/${taskId}/archive`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );

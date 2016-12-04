@@ -1,6 +1,7 @@
-const TaskService = require('../services/TaskService');
-const ProjectService = require('../services/ProjectService');
-const AuthService = require('../services/AuthService');
+import TaskService from '../services/TaskService';
+import ProjectService from '../services/ProjectService';
+import AuthService from '../services/AuthService';
+import { hashHistory } from 'react-router';
 
 export const CHECK_LOGGED_IN_START = 'CHECK_LOGGED_IN_START';
 export const CHECK_LOGGED_IN_SUCCESS = 'CHECK_LOGGED_IN_SUCCESS';
@@ -45,15 +46,17 @@ export function checkLoggedIn() {
     dispatch(checkLoggedInStart());
     let jwt = window.sessionStorage.getItem('jwt');
     if (!jwt) {
-      dispatch(loginFailure('Login Failed'));
+      dispatch(checkLoggedInFailure('Login Failed'));
       return;
     }
     let authService = new AuthService();
     return authService.checkLoggedIn()
       .then((res) => {
+        console.log('checkLoggedInSuccess');
         dispatch(checkLoggedInSuccess(res.body));
       })
       .catch((err) => {
+        console.log('checkLoggedInFailure');
         window.sessionStorage.removeItem('jwt');
         dispatch(checkLoggedInFailure('Login Failed'));
       });
@@ -72,14 +75,14 @@ export function checkLoggedInFailure(error) {
   return { type: CHECK_LOGGED_IN_FAILURE, error };
 };
 
-export function login(email, password) {
+export function login(email, password, redirectRoute) {
   return function (dispatch) {
     dispatch(loginStart());
     let authService = new AuthService();
     return authService.login(email, password)
       .then((res) => {
         window.sessionStorage.setItem('jwt', res.body.jwt);
-        return dispatch(loginSuccess(res.body.user));
+        return dispatch(loginSuccess(res.body.user, redirectRoute));
       })
       .catch((err) => {
         window.sessionStorage.removeItem('jwt');
@@ -92,7 +95,8 @@ export function loginStart() {
   return { type: LOGIN_START };
 };
 
-export function loginSuccess(user) {
+export function loginSuccess(user, redirectRoute = '/') {
+  hashHistory.push(redirectRoute);
   return { type: LOGIN_SUCCESS, user };
 };
 
@@ -122,11 +126,11 @@ export function fetchTasksFailure(error) {
   return { type: FETCH_TASKS_FAILURE, error };
 };
 
-export function addTask(title) {
+export function addTask(projectId, title) {
   return function (dispatch) {
     dispatch(addTaskStart());
     let taskService = new TaskService();
-    return taskService.create(title)
+    return taskService.create(projectId, title)
       .then(res => dispatch(addTaskSuccess(res.body)))
       .catch(err => dispatch(addTaskFailure('API Failed')));
   }
@@ -142,11 +146,11 @@ export function addTaskFailure(error) {
   return { type: ADD_TASK_FAILURE, error };
 };
 
-export function completeTask(taskId) {
+export function completeTask(projectId, taskId) {
   return function (dispatch) {
     dispatch(completeTaskStart());
     let taskService = new TaskService();
-    return taskService.complete(taskId)
+    return taskService.complete(projectId, taskId)
       .then(res => dispatch(completeTaskSuccess(res.body)))
       .catch(err => dispatch(completeTaskFailure('API Failed')));
   }
@@ -163,11 +167,11 @@ export function completeTaskFailure(error) {
 };
 
 
-export function archiveTask(taskId) {
+export function archiveTask(projectId, taskId) {
   return function (dispatch) {
     dispatch(archiveTaskStart());
     let taskService = new TaskService();
-    return taskService.archive(taskId)
+    return taskService.archive(projectId, taskId)
       .then(res => dispatch(archiveTaskSuccess(res.body)))
       .catch(err => dispatch(archiveTaskFailure('API Failed')));
   }
@@ -204,4 +208,3 @@ export function fetchProjectsSuccess(projects) {
 export function fetchProjectsFailure(error) {
   return { type: FETCH_PROJECTS_FAILURE, error };
 };
-
