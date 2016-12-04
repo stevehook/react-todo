@@ -24,7 +24,7 @@ class TaskService extends ApiService {
   complete(projectId, taskId) {
     return this.promisify(
       request
-        .post(`/api/projects/${projectId}/tasks/${taskId}/complete`)
+        .patch(`/api/projects/${projectId}/tasks/${taskId}/complete`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );
@@ -33,7 +33,7 @@ class TaskService extends ApiService {
   archive(projectId, taskId) {
     return this.promisify(
       request
-        .post(`/api/projects/${projectId}/tasks/${taskId}/archive`)
+        .patch(`/api/projects/${projectId}/tasks/${taskId}/archive`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
         .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
     );

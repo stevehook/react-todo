@@ -29,7 +29,7 @@ describe('actions', () => {
 
       beforeEach(() => {
         nock('http://localhost')
-          .post('/api/projects/321/tasks/123/archive')
+          .patch('/api/projects/321/tasks/123/archive')
           .matchHeader('authorization', 'Bearer jwt123')
           .reply(200, responseBody, {'Content-Type': 'application/json'});
       });
@@ -47,7 +47,7 @@ describe('actions', () => {
     describe('when /api/projects/:project_id/tasks/:id/archive fails', () => {
       beforeEach(() => {
         nock('http://localhost')
-          .post('/api/projects/321/tasks/123/archive')
+          .patch('/api/projects/321/tasks/123/archive')
           .matchHeader('authorization', 'Bearer jwt123')
           .reply(400, {}, {'Content-Type': 'application/json'});
       });
