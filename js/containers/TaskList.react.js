@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchTasks, addTask, completeTask, archiveTask } from '../actions/actionTypes';
-import TaskListItem from './TaskListItem.react';
-import NewTask from './NewTask.react';
+import TaskListItem from '../components/TaskListItem.react';
+import NewTask from '../components/NewTask.react';
 
 class TaskList extends React.Component {
   componentDidMount() {

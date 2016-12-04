@@ -3,7 +3,7 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import TaskList from '../../js/components/TaskList.react';
+import TaskList from '../../js/containers/TaskList.react';
 import TaskListItem from '../../js/components/TaskListItem.react';
 import TaskService from '../../js/services/TaskService';
 import * as Actions from '../../js/actions/actionTypes';

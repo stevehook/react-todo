@@ -4,8 +4,8 @@ import ProjectList from './ProjectList.react';
 import TaskList from './TaskList.react';
 import LoginForm from './LoginForm.react';
 import Home from './Home.react';
-import Authenticated from './Authenticated.react';
-import NotFound from './NotFound.react';
+import Authenticated from '../components/Authenticated.react';
+import NotFound from '../components/NotFound.react';
 import AuthService from '../services/AuthService';
 import { connect, Provider } from 'react-redux';
 import { checkLoggedIn, login } from '../actions/actionTypes';
@@ -21,8 +21,8 @@ const routes = (
 
 class Root extends React.Component {
   componentDidMount() {
-      const { dispatch } = this.props;
-      dispatch(checkLoggedIn());
+    const { dispatch } = this.props;
+    dispatch(checkLoggedIn());
   }
 
   render() {

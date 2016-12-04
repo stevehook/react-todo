@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ProjectService from '../services/ProjectService';
 import { fetchProjects } from '../actions/actionTypes';
-import ProjectListItem from './ProjectListItem.react';
+import ProjectListItem from '../components/ProjectListItem.react';
 
 class ProjectList extends React.Component {
   componentDidMount() {

@@ -5,8 +5,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
-import TodoApp from './components/TodoApp.react';
-import Root from './components/Root.react';
+import Root from './containers/Root.react';
 import todoApp from './reducers/todoApp';
 // import { loginUserSuccess } from './actions/actionTypes';
 
