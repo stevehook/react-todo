@@ -5,6 +5,13 @@ import TaskListItem from '../components/TaskListItem.react';
 import NewTask from '../components/NewTask.react';
 
 class TaskList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleNewTask = this.handleNewTask.bind(this);
+    this.handleArchiveTask = this.handleArchiveTask.bind(this);
+    this.handleCompleteTask = this.handleCompleteTask.bind(this);
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     this.props.dispatch(fetchTasks(this.props.params.projectId));
@@ -17,14 +24,14 @@ class TaskList extends React.Component {
   render() {
     return (
       <div>
-        <NewTask task={ this.props.newTask } onNewTask={ this.handleNewTask.bind(this) } />
-        <ul className='task-list'>{ this.tasksForProject.bind(this)().map((task) => {
+        <NewTask task={ this.props.newTask } onNewTask={ this.handleNewTask } />
+        <ul className='task-list'>{ this.tasksForProject().map((task) => {
           return (
             <TaskListItem
               key={ 'task-' + task.id }
               task={ task }
-              onArchiveTask={ this.handleArchiveTask.bind(this) }
-              onCompleteTask={ this.handleCompleteTask.bind(this) }
+              onArchiveTask={ this.handleArchiveTask }
+              onCompleteTask={ this.handleCompleteTask }
             />
           );
         })}

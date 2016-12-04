@@ -4,6 +4,11 @@ import { login } from '../actions/actionTypes';
 import { connect } from 'react-redux';
 
 class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   componentDidMount() {
     this.refs.loginEmail.focus();
     this.redirectRoute = this.props.location.query.next || '/';
@@ -24,7 +29,7 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className="form-container">
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={ this.handleSubmit }>
           <input
             type='text'
             className='form-control user-email'

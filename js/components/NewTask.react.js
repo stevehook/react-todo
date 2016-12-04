@@ -4,6 +4,11 @@ import ReactDOM from 'react-dom';
 const ENTER_KEY = 13;
 
 class NewTask extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleNewTaskKeyDown = this.handleNewTaskKeyDown.bind(this);
+  }
+
   render() {
     return (
       <div id='new-task' className='task new-task'>
@@ -12,7 +17,7 @@ class NewTask extends React.Component {
           placeholder='What needs to be done?'
           autoFocus={ true }
           ref='newField'
-          onKeyDown={ this.handleNewTaskKeyDown.bind(this) }
+          onKeyDown={ this.handleNewTaskKeyDown }
         />
       </div>
     );

@@ -1,12 +1,18 @@
 import React from 'react';
 
 class TaskListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleComplete = this.handleComplete.bind(this);
+    this.handleArchive = this.handleArchive.bind(this);
+  }
+
   render() {
   	return (
       <li className={ this.cssClassForTask() }>
-        <span className='glyphicon glyphicon-ok' onClick={ this.handleComplete.bind(this) }></span>
+        <span className='glyphicon glyphicon-ok' onClick={ this.handleComplete }></span>
         <span>{this.props.task.title}</span>
-        <span className='glyphicon glyphicon-remove' onClick={ this.handleArchive.bind(this) }></span>
+        <span className='glyphicon glyphicon-remove' onClick={ this.handleArchive }></span>
       </li>
   	);
   }
