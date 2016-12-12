@@ -7,8 +7,7 @@
 
 /* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -100,4 +99,8 @@ ul.task-list li.completed {
 
 ul.task-list span.glyphicon-ok {
   color: #2A2;
+}
+
+nav.navbar {
+  border-radius: 0;
 }

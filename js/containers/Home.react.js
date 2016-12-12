@@ -8,9 +8,29 @@ const Home = React.createClass({
   render: function() {
     return (
       <div>
-        <p>Home</p>
-        <div className="detail">
-          {this.props.children}
+        <div class='header'>
+          <nav className="navbar navbar-inverse">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <a className="navbar-brand" href="#">Todo</a>
+                <p className="navbar-text navbar-right">
+                  Signed in as <a href="#" className="navbar-link">Bob Roberts</a>
+                </p>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <div class='container'>
+          <div class="row">
+            <div>
+              <div className="detail">
+                {this.props.children}
+              </div>
+            </div>
+          </div>
+          <div class='footer'>
+          </div>
         </div>
       </div>
     );
