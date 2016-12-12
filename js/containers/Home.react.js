@@ -9,7 +9,7 @@ const Home = React.createClass({
   render: function() {
     return (
       <div>
-        <div class='header'>
+        <div>
           <nav className='navbar navbar-inverse'>
             <div className='container-fluid'>
               <div className='navbar-header'>
@@ -23,15 +23,15 @@ const Home = React.createClass({
           </nav>
         </div>
 
-        <div class='container'>
-          <div class='row'>
+        <div className='container'>
+          <div className='row'>
             <div>
               <div className='detail'>
                 {this.props.children}
               </div>
             </div>
           </div>
-          <div class='footer'>
+          <div className='footer'>
           </div>
         </div>
       </div>
