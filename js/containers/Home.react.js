@@ -1,4 +1,5 @@
-const React = require('react');
+import React from 'react';
+import { Link } from 'react-router';
 
 const Home = React.createClass({
   getInitialState: function() {
@@ -9,12 +10,13 @@ const Home = React.createClass({
     return (
       <div>
         <div class='header'>
-          <nav className="navbar navbar-inverse">
-            <div className="container-fluid">
-              <div className="navbar-header">
-                <a className="navbar-brand" href="#">Todo</a>
-                <p className="navbar-text navbar-right">
-                  Signed in as <a href="#" className="navbar-link">Bob Roberts</a>
+          <nav className='navbar navbar-inverse'>
+            <div className='container-fluid'>
+              <div className='navbar-header'>
+                <Link className='navbar-brand' to='/'>Todo</Link>
+                <Link className='navbar-text' to='/projects'>Projects</Link>
+                <p className='navbar-text navbar-right'>
+                  Signed in as <Link to='/' className='navbar-link'>Bob Roberts</Link>
                 </p>
               </div>
             </div>
@@ -22,9 +24,9 @@ const Home = React.createClass({
         </div>
 
         <div class='container'>
-          <div class="row">
+          <div class='row'>
             <div>
-              <div className="detail">
+              <div className='detail'>
                 {this.props.children}
               </div>
             </div>
