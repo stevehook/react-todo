@@ -7,8 +7,7 @@
 
 /* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -57,14 +56,14 @@ div.notification-bar {
   min-height: 72px;
 }
 
-ul.task-list {
+ul.project-list, ul.task-list {
   list-style-type: none;
   position: relative;
   padding: 0;
   margin: 0;
 }
 
-ul.task-list li {
+ul.project-list li, ul.task-list li {
   position: relative;
   padding: 10px 5px;
   margin: 0;
@@ -100,4 +99,8 @@ ul.task-list li.completed {
 
 ul.task-list span.glyphicon-ok {
   color: #2A2;
+}
+
+nav.navbar {
+  border-radius: 0;
 }
