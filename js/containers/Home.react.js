@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const Home = React.createClass({
-  getInitialState: function() {
+class Home extends React.Component {
+  getInitialState() {
     return {};
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div>
         <div>

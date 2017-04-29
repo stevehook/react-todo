@@ -1,14 +1,14 @@
 const React = require('react');
 
-const NotFound = React.createClass({
-  render: function() {
+class NotFound extends React.Component {
+  render() {
     return (
       <div>
         <p>Page not found</p>
       </div>
     );
   }
-});
+}
 
 module.exports = NotFound;
 
