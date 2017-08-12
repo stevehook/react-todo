@@ -14,12 +14,10 @@ class ProjectList extends React.Component {
     return (
       <div>
         <div>
-          <ul className='project-list'>{
-            this.props.collection.map((project) => {
-              return (
-                <ProjectListItem key={'project-' + project.id} project={ project }/>
-              );
-            })
+          <ul className="project-list">{
+            this.props.collection.map(project => (
+              <ProjectListItem key={`project-${project.id}`} project={project} />
+              ))
           }
           </ul>
         </div>

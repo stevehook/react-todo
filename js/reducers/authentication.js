@@ -17,19 +17,19 @@ function authentication(state = INITIAL_STATE, action) {
       return Object.assign({}, state, {
         loggedIn: true,
         user: action.user,
-        jwt: action.jwt
+        jwt: action.jwt,
       });
     case LOGIN_FAILURE:
     case CHECK_LOGGED_IN_FAILURE:
       return Object.assign({}, state, {
         loggedIn: false,
         user: null,
-        jwt: null
+        jwt: null,
       });
     default:
       return state;
   }
-};
+}
 
 authentication.INITIAL_STATE = INITIAL_STATE;
 

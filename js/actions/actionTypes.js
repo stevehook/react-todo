@@ -44,13 +44,12 @@ export const FETCH_PROJECTS_FAILURE = 'FETCH_PROJECTS_FAILURE';
 export function checkLoggedIn() {
   return function (dispatch) {
     dispatch(checkLoggedInStart());
-    let jwt = window.sessionStorage.getItem('jwt');
+    const jwt = window.sessionStorage.getItem('jwt');
     if (!jwt) {
       dispatch(checkLoggedInFailure('Login Failed'));
       return;
     }
-    let authService = new AuthService();
-    return authService.checkLoggedIn()
+    return AuthService.checkLoggedIn()
       .then((res) => {
         console.log('checkLoggedInSuccess');
         dispatch(checkLoggedInSuccess(res.body));
@@ -60,26 +59,25 @@ export function checkLoggedIn() {
         window.sessionStorage.removeItem('jwt');
         dispatch(checkLoggedInFailure('Login Failed'));
       });
-  }
-};
+  };
+}
 
 export function checkLoggedInStart() {
   return { type: CHECK_LOGGED_IN_START };
-};
+}
 
 export function checkLoggedInSuccess(user) {
   return { type: CHECK_LOGGED_IN_SUCCESS, user };
-};
+}
 
 export function checkLoggedInFailure(error) {
   return { type: CHECK_LOGGED_IN_FAILURE, error };
-};
+}
 
 export function login(email, password, redirectRoute) {
   return function (dispatch) {
     dispatch(loginStart());
-    let authService = new AuthService();
-    return authService.login(email, password)
+    return AuthService.login(email, password)
       .then((res) => {
         window.sessionStorage.setItem('jwt', res.body.jwt);
         return dispatch(loginSuccess(res.body.user, redirectRoute));
@@ -88,123 +86,120 @@ export function login(email, password, redirectRoute) {
         window.sessionStorage.removeItem('jwt');
         return dispatch(loginFailure('Login Failed'));
       });
-  }
-};
+  };
+}
 
 export function loginStart() {
   return { type: LOGIN_START };
-};
+}
 
 export function loginSuccess(user, redirectRoute = '/') {
   hashHistory.push(redirectRoute);
   return { type: LOGIN_SUCCESS, user };
-};
+}
 
 export function loginFailure(error) {
   return { type: LOGIN_FAILURE, error };
-};
+}
 
 export function fetchTasks() {
   return function (dispatch) {
     dispatch(fetchTasksStart());
-    let taskService = new TaskService();
-    return taskService.getOutstanding()
+    return TaskService.getOutstanding()
       .then(res => dispatch(fetchTasksSuccess(res.body)))
       .catch(err => dispatch(fetchTasksFailure('API Failed')));
-  }
-};
+  };
+}
 
 export function fetchTasksStart() {
   return { type: FETCH_TASKS_START };
-};
+}
 
 export function fetchTasksSuccess(tasks) {
   return { type: FETCH_TASKS_SUCCESS, tasks };
-};
+}
 
 export function fetchTasksFailure(error) {
   return { type: FETCH_TASKS_FAILURE, error };
-};
+}
 
 export function addTask(projectId, title) {
   return function (dispatch) {
     dispatch(addTaskStart());
-    let taskService = new TaskService();
-    return taskService.create(projectId, title)
+    return TaskService.create(projectId, title)
       .then(res => dispatch(addTaskSuccess(res.body)))
       .catch(err => dispatch(addTaskFailure('API Failed')));
-  }
-};
+  };
+}
 
 export function addTaskStart() {
   return { type: ADD_TASK_START };
-};
+}
 export function addTaskSuccess(task) {
   return { type: ADD_TASK_SUCCESS, task };
-};
+}
 export function addTaskFailure(error) {
   return { type: ADD_TASK_FAILURE, error };
-};
+}
 
 export function completeTask(projectId, taskId) {
   return function (dispatch) {
     dispatch(completeTaskStart());
-    let taskService = new TaskService();
-    return taskService.complete(projectId, taskId)
+    return TaskService.complete(projectId, taskId)
       .then(res => dispatch(completeTaskSuccess(res.body)))
       .catch(err => dispatch(completeTaskFailure('API Failed')));
-  }
-};
+  };
+}
 
 export function completeTaskStart() {
   return { type: COMPLETE_TASK_START };
-};
+}
 export function completeTaskSuccess(task) {
   return { type: COMPLETE_TASK_SUCCESS, task };
-};
+}
 export function completeTaskFailure(error) {
   return { type: COMPLETE_TASK_FAILURE, error };
-};
+}
 
 
 export function archiveTask(projectId, taskId) {
   return function (dispatch) {
     dispatch(archiveTaskStart());
-    let taskService = new TaskService();
-    return taskService.archive(projectId, taskId)
+    return TaskService.archive(projectId, taskId)
       .then(res => dispatch(archiveTaskSuccess(res.body)))
       .catch(err => dispatch(archiveTaskFailure('API Failed')));
-  }
-};
+  };
+}
 
 export function archiveTaskStart() {
   return { type: ARCHIVE_TASK_START };
-};
+}
 export function archiveTaskSuccess(task) {
   return { type: ARCHIVE_TASK_SUCCESS, task };
-};
+}
 export function archiveTaskFailure(error) {
   return { type: ARCHIVE_TASK_FAILURE, error };
-};
+}
 
 export function fetchProjects() {
   return function (dispatch) {
     dispatch(fetchProjectsStart());
-    let projectService = new ProjectService();
-    return projectService.get()
+    return ProjectService.get()
       .then(res => dispatch(fetchProjectsSuccess(res.body)))
       .catch(err => dispatch(fetchProjectsFailure('API Failed')));
-  }
-};
+  };
+}
+
+foo = 'foo';
 
 export function fetchProjectsStart() {
   return { type: FETCH_PROJECTS_START };
-};
+}
 
 export function fetchProjectsSuccess(projects) {
   return { type: FETCH_PROJECTS_SUCCESS, projects };
-};
+}
 
 export function fetchProjectsFailure(error) {
   return { type: FETCH_PROJECTS_FAILURE, error };
-};
+}

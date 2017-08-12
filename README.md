@@ -18,7 +18,7 @@ static assets that make up the front-end:
 
     $ npm run serve
 
-The server proxies unknown requests to the API server at localhost:9292.
+The server proxies unknown requests to the API server at localhost:4000.
 
 ##Test
 

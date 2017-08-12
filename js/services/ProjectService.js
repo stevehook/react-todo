@@ -1,27 +1,25 @@
 const request = require('superagent');
-
-
 const ApiService = require('./ApiService');
 
 class ProjectService extends ApiService {
-  get() {
-    return this.promisify(
+  static get() {
+    return ApiService.promisify(
       request
         .get('/api/projects')
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .set('Accept', 'application/json')
+        .set('Accept', 'application/json'),
     );
   }
 
-  create(name) {
-    return this.promisify(
+  static create(name) {
+    return ApiService.promisify(
       request
         .post('/api/projects')
-        .send({ project: { name: name } })
+        .send({ project: { name } })
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .set('Accept', 'application/json')
+        .set('Accept', 'application/json'),
     );
   }
-};
+}
 
 module.exports = ProjectService;

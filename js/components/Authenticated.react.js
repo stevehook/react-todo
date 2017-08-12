@@ -14,7 +14,7 @@ const authenticated = (Component) => {
 
     checkAuth(loggedIn) {
       if (loggedIn === false) {
-        let redirectAfterLogin = this.props.location.pathname;
+        const redirectAfterLogin = this.props.location.pathname;
         hashHistory.push(`/login?next=${redirectAfterLogin}`);
       }
     }
@@ -27,20 +27,20 @@ const authenticated = (Component) => {
       }
       return (
         <div>
-        {
+          {
           this.props.loggedIn === true
-            ? <Component {...this.props}/>
+            ? <Component {...this.props} />
             : null
         }
         </div>
-      )
+      );
     }
   }
 
-  const mapStateToProps = (state) => ({
-    loggedIn: state.authentication.loggedIn
+  const mapStateToProps = state => ({
+    loggedIn: state.authentication.loggedIn,
   });
 
   return connect(mapStateToProps)(Authenticated);
-}
+};
 export default authenticated;

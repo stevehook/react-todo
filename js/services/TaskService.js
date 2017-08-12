@@ -2,42 +2,42 @@ const request = require('superagent');
 const ApiService = require('./ApiService');
 
 class TaskService extends ApiService {
-  getOutstanding() {
-    return this.promisify(
+  static getOutstanding() {
+    return ApiService.promisify(
       request
         .get('/api/tasks')
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .set('Accept', 'application/json')
+        .set('Accept', 'application/json'),
     );
   }
 
-  create(projectId, title) {
-    return this.promisify(
+  static create(projectId, title) {
+    return ApiService.promisify(
       request
         .post(`/api/projects/${projectId}/tasks`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .send({ task: { title: title } })
-        .set('Accept', 'application/json')
+        .send({ task: { title } })
+        .set('Accept', 'application/json'),
     );
   }
 
-  complete(projectId, taskId) {
-    return this.promisify(
+  static complete(projectId, taskId) {
+    return ApiService.promisify(
       request
         .patch(`/api/projects/${projectId}/tasks/${taskId}/complete`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
+        .set({ 'X-Http-Method-Override': 'PATCH', Accept: 'application/json' }),
     );
   }
 
-  archive(projectId, taskId) {
-    return this.promisify(
+  static archive(projectId, taskId) {
+    return ApiService.promisify(
       request
         .patch(`/api/projects/${projectId}/tasks/${taskId}/archive`)
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .set({ 'X-Http-Method-Override': 'PATCH', 'Accept': 'application/json' })
+        .set({ 'X-Http-Method-Override': 'PATCH', Accept: 'application/json' }),
     );
   }
-};
+}
 
 module.exports = TaskService;

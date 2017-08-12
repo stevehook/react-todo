@@ -1,28 +1,24 @@
-const request = require('superagent');
-const ApiService = require('./ApiService');
+import request from 'superagent';
+import ApiService from './ApiService';
 
 class AuthService extends ApiService {
-  login(email, password) {
-    return this.promisify(
+  static login(email, password) {
+    return ApiService.promisify(
       request
         .post('/api/sessions')
-        .send({ user: { email: email, password: password } })
-        .set('accept', 'application/json')
+        .send({ user: { email, password } })
+        .set('accept', 'application/json'),
     );
   }
 
-  logout() {
-    // TODO: Call the API to delete the current session
-  }
-
-  checkLoggedIn() {
-    return this.promisify(
+  static checkLoggedIn() {
+    return ApiService.promisify(
       request
         .get('/api/session')
         .set('authorization', `Bearer ${window.sessionStorage.getItem('jwt')}`)
-        .set('accept', 'application/json')
+        .set('accept', 'application/json'),
     );
   }
-};
+}
 
 module.exports = AuthService;

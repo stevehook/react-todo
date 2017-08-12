@@ -9,11 +9,11 @@ class TaskListItem extends React.Component {
 
   render() {
   	return (
-      <li className={ this.cssClassForTask() }>
-        <span className='glyphicon glyphicon-ok' onClick={ this.handleComplete }></span>
-        <span>{this.props.task.title}</span>
-        <span className='glyphicon glyphicon-remove' onClick={ this.handleArchive }></span>
-      </li>
+    <li className={this.cssClassForTask()}>
+      <span className="glyphicon glyphicon-ok" onClick={this.handleComplete} />
+      <span>{this.props.task.title}</span>
+      <span className="glyphicon glyphicon-remove" onClick={this.handleArchive} />
+    </li>
   	);
   }
 
@@ -41,7 +41,7 @@ class TaskListItem extends React.Component {
 TaskListItem.propTypes = {
   task: React.PropTypes.object.isRequired,
   onCompleteTask: React.PropTypes.func,
-  onArchiveTask: React.PropTypes.func
+  onArchiveTask: React.PropTypes.func,
 };
 
 module.exports = TaskListItem;

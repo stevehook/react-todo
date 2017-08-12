@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import ProjectList from '../../js/containers/ProjectList.react';
 import ProjectListItem from '../../js/components/ProjectListItem.react';
-import ProjectService from '../../js/services/ProjectService';
 import * as Actions from '../../js/actions/actionTypes';
 
 let projects = [

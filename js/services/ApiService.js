@@ -1,17 +1,15 @@
-const request = require('superagent');
+import request from 'superagent';
 
 class ApiService {
-  promisify(req) {
+  static promisify(req) {
     return new Promise((resolve, reject) => {
-      req.end((err, res) => {
-        err ? reject(err) : resolve(res);
-      });
+      req.end((err, res) => (err ? reject(err) : resolve(res)));
     });
   }
 
-  getAuthenticatedRequest() {
-    return request.set('authorization', `Bearer $(sessionStorage.getItem('jwt'))`);
+  static getAuthenticatedRequest() {
+    return request.set('authorization', "Bearer $(sessionStorage.getItem('jwt'))");
   }
-};
+}
 
 module.exports = ApiService;

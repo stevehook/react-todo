@@ -1,11 +1,13 @@
-const tasks = require('./tasks');
-
-import { ADD_PROJECT, ADD_PROJECT_START, ADD_PROJECT_SUCCESS, ADD_PROJECT_FAILURE,
-  FETCH_PROJECTS, FETCH_PROJECTS_START, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE } from '../actions/actionTypes';
+import {
+  ADD_PROJECT_SUCCESS,
+  FETCH_PROJECTS_START,
+  FETCH_PROJECTS_SUCCESS,
+  FETCH_PROJECTS_FAILURE,
+} from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   collection: [],
-  newProject: { id: 0, name: '' }
+  newProject: { id: 0, name: '' },
 };
 
 function projects(state = INITIAL_STATE, action) {
@@ -20,7 +22,7 @@ function projects(state = INITIAL_STATE, action) {
       return state;
     case FETCH_PROJECTS_SUCCESS:
       return Object.assign({}, state, {
-        collection: action.projects
+        collection: action.projects,
       });
     case FETCH_PROJECTS_FAILURE:
       // PROJECT: Set UI Error message
@@ -28,7 +30,7 @@ function projects(state = INITIAL_STATE, action) {
     default:
       return state;
   }
-};
+}
 
 projects.INITIAL_STATE = INITIAL_STATE;
 

@@ -1,20 +1,20 @@
 import { expect } from 'chai';
 import request from 'superagent';
-import * as actions from '../../js/actions/actionTypes';
+import * as actions from './actionTypes';
 import nock from 'nock';
-import mockStore from '../mockStore';
+import mockStore from '../test/mockStore';
 
 describe('actions', () => {
   describe('addTask', () => {
     afterEach(() => { nock.cleanAll(); });
     const initialState = {
       data: {
-        tasks: []
+        tasks: [],
       },
       authentication: {
         loggedIn: false,
-        user: null
-      }
+        user: null,
+      },
     };
 
     beforeEach(() => {
@@ -22,19 +22,19 @@ describe('actions', () => {
     });
 
     describe('when /api/projects/:projectId/tasks succeeds', () => {
-      let responseBody = { id: 123, project_id: 456, title: 'Walk the dog', completed: false };
+      const responseBody = { id: 123, project_id: 456, title: 'Walk the dog', completed: false };
 
       beforeEach(() => {
         nock('http://localhost')
           .post('/api/projects/456/tasks')
           .matchHeader('authorization', 'Bearer jwt123')
-          .reply(200, responseBody, {'Content-Type': 'application/json'});
+          .reply(200, responseBody, { 'Content-Type': 'application/json' });
       });
 
       it('it dispatches the correct actions', (done) => {
         const expectedActions = [
           { type: actions.ADD_TASK_START },
-          { type: actions.ADD_TASK_SUCCESS, task: responseBody }
+          { type: actions.ADD_TASK_SUCCESS, task: responseBody },
         ];
         const store = mockStore(initialState, expectedActions, done);
         store.dispatch(actions.addTask(456, 'Walk the dog'));
@@ -46,13 +46,13 @@ describe('actions', () => {
         nock('http://localhost')
           .post('/api/projects/456/tasks')
           .matchHeader('authorization', 'Bearer jwt123')
-          .reply(400, {}, {'Content-Type': 'application/json'});
+          .reply(400, {}, { 'Content-Type': 'application/json' });
       });
 
       it('it dispatches the correct actions', (done) => {
         const expectedActions = [
           { type: actions.ADD_TASK_START },
-          { type: actions.ADD_TASK_FAILURE, error: 'API Failed' }
+          { type: actions.ADD_TASK_FAILURE, error: 'API Failed' },
         ];
         const store = mockStore(initialState, expectedActions, done);
         store.dispatch(actions.addTask(456, 'Walk the dog'));

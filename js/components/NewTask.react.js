@@ -11,13 +11,13 @@ class NewTask extends React.Component {
 
   render() {
     return (
-      <div id='new-task' className='task new-task'>
+      <div id="new-task" className="task new-task">
         <input
-          className='form-control task-title'
-          placeholder='What needs to be done?'
-          autoFocus={ true }
-          ref='newField'
-          onKeyDown={ this.handleNewTaskKeyDown }
+          className="form-control task-title"
+          placeholder="What needs to be done?"
+          autoFocus
+          ref="newField"
+          onKeyDown={this.handleNewTaskKeyDown}
         />
       </div>
     );
@@ -30,8 +30,8 @@ class NewTask extends React.Component {
 
     event.preventDefault();
 
-    let input = ReactDOM.findDOMNode(this.refs.newField);
-    let title = input.value.trim();
+    const input = ReactDOM.findDOMNode(this.refs.newField);
+    const title = input.value.trim();
 
     if (title && this.props.onNewTask) {
       this.props.onNewTask(title);
@@ -41,7 +41,7 @@ class NewTask extends React.Component {
 }
 
 NewTask.propTypes = {
-  onNewTask: React.PropTypes.func
+  onNewTask: React.PropTypes.func,
 };
 
 module.exports = NewTask;

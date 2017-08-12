@@ -1,0 +1,38 @@
+{
+  "extends": "airbnb",
+  "globals": {
+    "window": true,
+    "document": true,
+    "documentRef": true,
+    "context": true,
+    "describe": true,
+    "it": true,
+    "before": true,
+    "beforeEach": true,
+    "afterEach": true
+  },
+ "ecmaFeatures": {
+    "jsx": true,
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "classes": true,
+    "templateStrings": true,
+    "defaultParams": true,
+    "modules": true,
+    "objectLiteralShorthandProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "experimentalObjectRestSpread": true,
+    "destructuring": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "semi": 2,
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": true
+    }]
+  }
+}

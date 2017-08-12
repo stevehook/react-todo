@@ -18,23 +18,24 @@ class TaskList extends React.Component {
   }
 
   tasksForProject() {
-    return this.props.collection.filter(task => task.project_id === parseInt(this.props.params.projectId));
+    return this.props.collection.filter(
+      task => task.project_id === parseInt(this.props.params.projectId)
+    );
   }
 
   render() {
     return (
       <div>
-        <NewTask task={ this.props.newTask } onNewTask={ this.handleNewTask } />
-        <ul className='task-list'>{ this.tasksForProject().map((task) => {
-          return (
+        <NewTask task={this.props.newTask} onNewTask={this.handleNewTask} />
+        <ul className="task-list">
+          {this.tasksForProject().map(task =>
             <TaskListItem
-              key={ 'task-' + task.id }
-              task={ task }
-              onArchiveTask={ this.handleArchiveTask }
-              onCompleteTask={ this.handleCompleteTask }
+              key={`task-${task.id}`}
+              task={task}
+              onArchiveTask={this.handleArchiveTask}
+              onCompleteTask={this.handleCompleteTask}
             />
-          );
-        })}
+          )}
         </ul>
       </div>
     );
@@ -53,7 +54,6 @@ class TaskList extends React.Component {
   }
 }
 
-TaskList.propTypes = {
-};
+TaskList.propTypes = {};
 
 export default connect(state => state.data.tasks)(TaskList);
